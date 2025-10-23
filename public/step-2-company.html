@@ -49,6 +49,27 @@
       .opt h3{margin:6px 0 0;font-size:18px}
       .opt p{margin:0;color:#374151}
 
+      /* Reveal panels for search */
+      .panel{margin-top:16px;padding:16px;border:1px solid #dbe4f1;background:#f3f6fb;border-radius:14px}
+      .is-hidden{display:none}
+      .panel h3{margin:0 0 8px;font-size:16px}
+      .panel .input{height:44px;padding:10px 12px;border:1px solid #d1d5db;border-radius:10px;background:#fff;font:inherit;color:inherit;width:100%}
+      .panel .input:focus{outline:none;border-color:#9fb5d7;box-shadow:0 0 0 3px rgba(30,64,175,.12)}
+      .panel label{font-weight:700;font-size:14px;display:block;margin:10px 0 6px}
+      .panel .hint{font-size:12px;color:var(--muted)}
+      .panel input[type="checkbox"]{accent-color: var(--brand)}
+      /* Dropdown suggestions under input */
+      .suggest-wrap{position:relative}
+      .suggest{list-style:none;margin:6px 0 0;padding:0}
+      .suggest-dropdown{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:1px solid #e6eaf0;border-radius:12px;box-shadow:0 8px 24px rgba(15,23,42,.08);max-height:220px;overflow:auto;display:none;z-index:5}
+      .suggest-dropdown.show{display:block}
+      .suggest-dropdown li{padding:10px 12px;color:#111827;cursor:pointer}
+      .suggest-dropdown li+li{border-top:1px solid #e6eaf0}
+      .suggest-dropdown li:hover{background:#f8fafc}
+      .link-row{display:flex;align-items:center;gap:8px;margin-top:12px}
+      .link-btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:9999px;border:1px solid var(--brand);color:var(--brand);background:#fff;text-decoration:none;font-weight:700}
+      .link-btn:hover{background:var(--brand-50)}
+
       /* Footer actions */
       .form-foot{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
       .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9999px;border:1px solid var(--border);background:#fff;color:#111827;font-weight:700;cursor:pointer}
@@ -151,9 +172,56 @@
           </div>
         </div>
 
+        <!-- Conditional panels for the two right-hand cards -->
+        <div id="panel-own" class="panel is-hidden" aria-hidden="true">
+          <h3>Firmenangaben</h3>
+          <label for="own-name">Firmenname</label>
+          <input id="own-name" class="input" type="text" placeholder="z. B. Mentalship Coaching GmbH" />
+          <label style="display:flex;align-items:center;gap:8px;margin-top:10px;">
+            <input id="own-diffaddr" type="checkbox" />
+            <span>Adresse abweichend von vorherigen Angaben</span>
+          </label>
+          <div id="own-addr-wrap" class="is-hidden">
+            <label for="own-address">Adresse</label>
+            <input id="own-address" class="input" type="text" placeholder="Straße, Nr., PLZ, Ort" />
+          </div>
+        </div>
+
+        <div id="panel-company" class="panel is-hidden" aria-hidden="true">
+          <h3>Unternehmen oder Team suchen</h3>
+          <div class="suggest-wrap">
+            <input class="input suggest-input" data-suggest="company" type="text" placeholder="Unternehmen/Team suchen …" />
+            <ul class="suggest suggest-dropdown" id="suggest-company" aria-label="Vorschläge (statisch)">
+              <li>MentalCoaching GmbH</li>
+              <li>Mindset & Performance AG</li>
+              <li>PeakFlow Teams</li>
+            </ul>
+          </div>
+          <div class="link-row">
+            <span class="muted">Unternehmen oder Team nicht gefunden?</span>
+            <a class="link-btn" href="#">Jetzt Unternehmen registrieren</a>
+          </div>
+        </div>
+
+        <div id="panel-org" class="panel is-hidden" aria-hidden="true">
+          <h3>Organisation oder Verband suchen</h3>
+          <div class="suggest-wrap">
+            <input class="input suggest-input" data-suggest="org" type="text" placeholder="Organisation/Verband suchen …" />
+            <ul class="suggest suggest-dropdown" id="suggest-org" aria-label="Vorschläge (statisch)">
+              <li>Deutscher Sportverband e. V.</li>
+              <li>Fachgruppe Mentale Gesundheit</li>
+              <li>Coaching Initiative Europa</li>
+            </ul>
+          </div>
+          <div class="link-row">
+            <span class="muted">Nicht gefunden?</span>
+            <a class="link-btn" href="#">Jetzt Organisation einreichen</a>
+          </div>
+        </div>
+
         <div class="form-foot">
           <a class="btn" href="step-1-profile.html">Zurück</a>
-          <a class="btn btn-primary" href="#">Weiter</a>
+          <a class="btn btn-primary" href="step-2-online.html">Weiter</a>
         </div>
       </div>
     </main>
@@ -191,6 +259,9 @@
             });
             card.classList.add('is-selected');
             card.setAttribute('aria-pressed','true');
+            // show conditional panels
+            const type = card.getAttribute('data-value');
+            showPanels(type);
           });
           // keyboard focus selection
           grid.addEventListener('keydown', function(e){
@@ -201,8 +272,68 @@
             card.click();
           });
         }
+
+        const panelOwn = document.getElementById('panel-own');
+        const panelCompany = document.getElementById('panel-company');
+        const panelOrg = document.getElementById('panel-org');
+        function showPanels(type){
+          if(panelCompany && panelOrg){
+            const showOwn = type === 'company';
+            const showCompany = type === 'team';
+            const showOrg = type === 'org';
+            if(panelOwn){
+              panelOwn.classList.toggle('is-hidden', !showOwn);
+              panelOwn.setAttribute('aria-hidden', String(!showOwn));
+            }
+            panelCompany.classList.toggle('is-hidden', !showCompany);
+            panelCompany.setAttribute('aria-hidden', String(!showCompany));
+            panelOrg.classList.toggle('is-hidden', !showOrg);
+            panelOrg.setAttribute('aria-hidden', String(!showOrg));
+          }
+        }
+        // initial state (solo preselected)
+        showPanels('solo');
+
+        // Toggle address field when checkbox checked
+        (function(){
+          const cb = document.getElementById('own-diffaddr');
+          const wrap = document.getElementById('own-addr-wrap');
+          if(cb && wrap){
+            cb.addEventListener('change', function(){
+              wrap.classList.toggle('is-hidden', !cb.checked);
+            });
+          }
+        })();
+
+        // Suggest dropdown logic: only show when there are matches and input not empty
+        function wireSuggest(input, list){
+          if(!input || !list) return;
+          const items = Array.from(list.querySelectorAll('li'));
+          function update(){
+            const q = input.value.trim().toLowerCase();
+            let shown = 0;
+            items.forEach(li=>{
+              const ok = q && li.textContent.toLowerCase().includes(q);
+              li.style.display = ok ? '' : 'none';
+              if(ok) shown++;
+            });
+            list.classList.toggle('show', shown > 0);
+          }
+          input.addEventListener('input', update);
+          input.addEventListener('focus', update);
+          document.addEventListener('click', (e)=>{
+            if(!list.contains(e.target) && e.target !== input){ list.classList.remove('show'); }
+          });
+          list.addEventListener('click', (e)=>{
+            const li = e.target.closest('li');
+            if(!li) return;
+            input.value = li.textContent.trim();
+            list.classList.remove('show');
+          });
+        }
+        wireSuggest(document.querySelector('input[data-suggest="company"]'), document.getElementById('suggest-company'));
+        wireSuggest(document.querySelector('input[data-suggest="org"]'), document.getElementById('suggest-org'));
       })();
     </script>
   </body>
   </html>
-
