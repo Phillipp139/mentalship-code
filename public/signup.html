@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mentalship – Registrieren</title>
+    <style>
+      :root{
+        --bg:#f7f9fc;--surface:#fff;--surface-2:#f3f6fa;--border:#e6ebf2;--text:#0f172a;--muted:#475569;
+        --brand-50:#eff6ff;--brand-100:#dbeafe;--brand-600:#2563eb;--brand-700:#1d4ed8;--accent:#3b82f6;
+        --focus:0 0 0 4px rgba(37,99,235,.15);--r-sm:10px;--r-md:14px;--shadow:0 10px 30px rgba(15,23,42,.08)
+      }
+      *,*::before,*::after{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.5;color:var(--text);background:radial-gradient(1200px 600px at 50% -10%, #eef4ff, transparent 60%),var(--bg)}
+      img{max-width:100%;display:block}
+      a{color:var(--brand-600);text-decoration:none}
+      a:hover{color:var(--brand-700)}
+      .page{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto}
+      .container{max-width:960px;margin:0 auto;padding:0 24px}
+      .site-header{position:sticky;top:0;background:color-mix(in srgb,#fff 80%,transparent);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--border);z-index:10}
+      .site-header .inner{height:68px;display:flex;align-items:center;justify-content:space-between}
+      .brand{display:inline-flex;align-items:center;gap:12px;color:inherit}
+      .brand-logo{height:28px;width:auto}
+      .brand-name{font-weight:800;letter-spacing:-.01em}
+
+      .auth{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;align-items:start;padding:40px 0}
+      .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)}
+      .card .head{padding:22px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+      .card .body{padding:24px}
+      .kicker{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--brand-600)}
+      h1{font-size:28px;letter-spacing:-.01em;margin:6px 0 0}
+      p.lead{color:var(--muted);margin:8px 0 0}
+
+      .role-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:8px}
+      .role{border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start;background:var(--surface-2);cursor:pointer}
+      .role:hover{border-color:color-mix(in srgb,var(--brand-600) 35%, var(--border))}
+      .radio{width:18px;height:18px;border:2px solid var(--brand-600);border-radius:999px;display:grid;place-items:center;margin-top:2px;background:#fff}
+      .radio .dot{width:10px;height:10px;border-radius:999px;background:var(--brand-600);opacity:.12}
+      .role.is-active .radio .dot{opacity:1}
+      .role .title{font-weight:700}
+      .role .desc{font-size:14px;color:var(--muted)}
+
+      .oauth-row{display:flex;gap:8px;margin-top:8px}
+      .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 14px;border-radius:12px;border:1px solid transparent;background:#fff;color:var(--text);font-weight:700;cursor:pointer}
+      .btn:focus-visible{outline:none;box-shadow:var(--focus)}
+      .btn-primary{background:var(--brand-600);color:#fff}
+      .btn-primary:hover{background:var(--brand-700)}
+      .btn-outline{background:#fff;border-color:var(--border)}
+      .btn-outline:hover{border-color:color-mix(in srgb,var(--brand-600) 30%, var(--border))}
+      .btn-ghost{background:transparent;color:var(--brand-600)}
+      .btn-ghost:hover{background:var(--brand-50)}
+      .oauth-ico{width:18px;height:18px;border-radius:3px;background:var(--muted);opacity:.6;margin-right:8px}
+
+      .divider{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:var(--muted);gap:12px;margin:18px 0}
+      .divider::before,.divider::after{content:"";height:1px;background:var(--border)}
+
+      .form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+      .field{display:flex;flex-direction:column}
+      .label{font-weight:700;font-size:14px;margin:0 0 6px}
+      .input,.select{height:44px;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:#fff;font:inherit;color:inherit}
+      .input:focus,.select:focus{border-color:var(--brand-600);box-shadow:var(--focus);outline:none}
+      .full{grid-column:1/-1}
+      .hint{font-size:12px;color:var(--muted);margin-top:6px}
+
+      .checks{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+      .check{display:flex;gap:10px;align-items:flex-start;color:var(--text)}
+      .check input{margin-top:3px}
+      .foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+      .muted{color:var(--muted)}
+
+      .aside{padding:24px}
+      .list{list-style:none;margin:8px 0 0;padding:0}
+      .list li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;color:var(--text)}
+      .tick{width:20px;height:20px;border-radius:999px;background:var(--brand-50);color:var(--brand-700);display:grid;place-items:center;font-weight:800;border:1px solid var(--brand-100)}
+
+      .site-footer{border-top:1px solid var(--border);background:#fff;color:var(--muted)}
+      .site-footer .inner{height:68px;display:flex;align-items:center;justify-content:space-between}
+
+      @media (max-width: 960px){
+        .auth{grid-template-columns:1fr}
+        .form{grid-template-columns:1fr}
+        .foot{flex-direction:column;gap:10px;align-items:stretch}
+      }
+    </style>
+  </head>
+  <body class="page">
+    <header class="site-header">
+      <div class="container inner">
+        <a class="brand" href="#" aria-label="Mentalship Startseite">
+          <img class="brand-logo" src="../Logos/LogoV1.png" alt="Mentalship Logo" />
+          <span class="brand-name">Mentalship</span>
+        </a>
+        <nav class="muted">Bereits Mitglied? <a href="#">Anmelden</a></nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="auth">
+          <!-- Hauptkarte: Signup -->
+          <section class="card">
+            <div class="head">
+              <div>
+                <div class="kicker">Registrierung</div>
+                <h1>Erstellen Sie Ihr Mentalship‑Konto</h1>
+                <p class="lead">Wählen Sie Ihre Rolle und registrieren Sie sich mit E‑Mail oder über einen Anbieter.</p>
+              </div>
+            </div>
+            <div class="body">
+              <!-- Rollenwahl (Upwork: Client vs Freelancer) -->
+              <div class="role-grid" aria-label="Rolle wählen">
+                <button class="role is-active" type="button" aria-pressed="true">
+                  <span class="radio" aria-hidden="true"><span class="dot"></span></span>
+                  <span>
+                    <div class="title">Ich suche Mentaltrainer</div>
+                    <div class="desc">Ich bin Auftraggeber und möchte Trainings oder Beratung buchen.</div>
+                  </span>
+                </button>
+                <button class="role" type="button" aria-pressed="false">
+                  <span class="radio" aria-hidden="true"><span class="dot"></span></span>
+                  <span>
+                    <div class="title">Ich bin Mentaltrainer</div>
+                    <div class="desc">Ich biete Mentaltraining an und möchte gefunden werden.</div>
+                  </span>
+                </button>
+              </div>
+
+              <!-- OAuth Optionen (statisch) -->
+              <div class="oauth-row" style="margin-top:16px">
+                <button class="btn btn-outline" type="button"><span class="oauth-ico" aria-hidden="true"></span>Mit Google fortfahren</button>
+                <button class="btn btn-outline" type="button"><span class="oauth-ico" aria-hidden="true"></span>Mit Apple fortfahren</button>
+              </div>
+
+              <div class="divider">oder mit E‑Mail registrieren</div>
+
+              <!-- E-Mail Formular (Upwork Felder, DE übersetzt) -->
+              <form class="form" action="#" method="get" aria-label="Registrierungsformular (statisch)">
+                <div class="field">
+                  <label class="label" for="fname">Vorname</label>
+                  <input class="input" id="fname" type="text" placeholder="z. B. Alex" />
+                </div>
+                <div class="field">
+                  <label class="label" for="lname">Nachname</label>
+                  <input class="input" id="lname" type="text" placeholder="z. B. Becker" />
+                </div>
+                <div class="field full">
+                  <label class="label" for="email">E‑Mail</label>
+                  <input class="input" id="email" type="email" placeholder="name@beispiel.de" />
+                </div>
+                <div class="field">
+                  <label class="label" for="pass">Passwort</label>
+                  <input class="input" id="pass" type="password" placeholder="••••••••" />
+                  <div class="hint">Mindestens 8 Zeichen.</div>
+                </div>
+                <div class="field">
+                  <label class="label" for="country">Land</label>
+                  <select class="select" id="country">
+                    <option>Deutschland</option>
+                    <option>Österreich</option>
+                    <option>Schweiz</option>
+                    <option>Andere</option>
+                  </select>
+                </div>
+
+                <div class="full checks">
+                  <label class="check"><input type="checkbox" /> Ich möchte hilfreiche E‑Mails mit Tipps und Updates erhalten.</label>
+                  <label class="check"><input type="checkbox" checked /> Ich stimme den <a href="#">Nutzungsbedingungen</a> und der <a href="#">Datenschutzerklärung</a> zu.</label>
+                </div>
+
+                <div class="full foot">
+                  <div class="muted">Schon ein Konto? <a href="#">Anmelden</a></div>
+                  <button class="btn btn-primary" type="button">Konto erstellen</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <!-- Seitenleiste: Nutzenargumente -->
+          <aside class="card aside" aria-label="Vorteile von Mentalship">
+            <div class="kicker">Warum Mentalship</div>
+            <h2 style="margin:6px 0 0;font-size:22px">Finden oder werden Sie gefunden – sicher und professionell</h2>
+            <ul class="list">
+              <li><span class="tick">✓</span><span>Strukturierter Registrierungsprozess – klar und schnell.</span></li>
+              <li><span class="tick">✓</span><span>Vertrauenswürdige Profile mit Spezialisierungen und Bewertungen.</span></li>
+              <li><span class="tick">✓</span><span>Klare Konditionen und transparente Kommunikation.</span></li>
+            </ul>
+
+            <div style="height:16px"></div>
+            <div class="kicker">Sicherheit</div>
+            <p class="muted" style="margin:6px 0 0">Ihre Daten werden vertraulich behandelt. Diese Seite ist ein statisches Design ohne Funktion.</p>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container inner">
+        <span>© Mentalship</span>
+        <nav class="muted"><a class="btn-ghost" href="#">Impressum</a> • <a class="btn-ghost" href="#">Datenschutz</a></nav>
+      </div>
+    </footer>
+  </body>
+  </html>
+

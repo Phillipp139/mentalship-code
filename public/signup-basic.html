@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mentalship – Registrieren</title>
+    <style>
+      :root{
+        --bg:#ffffff;--text:#0f172a;--muted:#6b7280;--border:#cfd6de;--surface:#ffffff;--placeholder:#9aa3af;
+        /* Deeper blue aligned with logo */
+        --brand:#1e40af;      /* primary */
+        --brand-700:#1e3a8a;  /* hover/darker */
+        --brand-50:#eef2ff;   /* light tint */
+        --focus:0 0 0 3px rgba(30,64,175,.20)
+      }
+      *,*:before,*:after{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.5;color:var(--text);background:var(--bg)}
+      a{color:var(--brand);text-decoration:none}
+      a:hover{color:var(--brand-700)}
+      .page{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto}
+      .container{max-width:760px;margin:0 auto;padding:0 20px}
+
+      /* Header */
+      .site-header{height:64px;display:flex;align-items:center}
+      .site-header .inner{display:flex;align-items:center;justify-content:space-between}
+      .brand{display:flex;align-items:center;gap:10px}
+      .brand-logo{height:22px;width:auto;display:block}
+      .toplink{font-weight:600;color:#374151}
+      .toplink a{color:var(--brand)}
+
+      /* Main card */
+      .hero{margin:18px 0 8px;text-align:center}
+      h1{margin:0;font-size:32px;letter-spacing:-.01em}
+      .oauth{display:flex;gap:12px;justify-content:center;margin:16px auto 22px;max-width:560px}
+      .btn{display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 16px;border-radius:9999px;border:1px solid var(--border);background:#fff;color:#111827;font-weight:600;cursor:pointer;line-height:1;font-size:15px}
+      .btn:focus-visible{outline:none;box-shadow:var(--focus)}
+      .btn-apple{padding:0 16px;border-color:#cfd6de;flex:1}
+      .btn-apple img{width:16px;height:16px;margin-right:8px}
+      .btn-google{height:42px;border-color:transparent;background:var(--brand);color:#fff;flex:1}
+      .btn-google .g-wrap{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:#ffffff;margin-right:8px}
+      .btn-google img{width:16px;height:16px}
+      .btn-primary{background:var(--brand);border-color:var(--brand);color:#fff;border-radius:9999px;height:44px;min-width:240px}
+      .btn-primary:hover{background:var(--brand-700)}
+      /* CTA zurück auf vorherige Breite (zentriert, nicht volle Breite) */
+      .cta .btn-primary{width:auto}
+      .ico{display:none}
+
+      .divider{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:#6b7280;gap:14px;margin:8px 0 18px}
+      .divider:before,.divider:after{content:"";height:1px;background:#e5e7eb}
+
+      form{max-width:560px;margin:0 auto}
+      .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:560px;margin:0 auto}
+      .field{display:flex;flex-direction:column;margin-bottom:12px}
+      label{font-weight:700;font-size:14px;margin:0 0 6px}
+      .input,.select{height:44px;padding:10px 12px;border-radius:8px;border:1px solid #d1d5db;background:#fff;font:inherit;color:inherit;width:100%}
+      .input.has-toggle{padding-right:44px}
+      .input::placeholder{color:var(--placeholder)}
+      .input:focus,.select:focus{border-color:#9fb5d7;box-shadow:0 0 0 3px rgba(37,99,235,.1);outline:none}
+      .select{appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:44px;
+        /* draw chevron directly inside the select, perfectly centered */
+        background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2355637a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
+        background-repeat:no-repeat;
+        background-position:right 12px center;
+        background-size:12px 12px;
+      }
+      .select-wrap{position:relative;max-width:560px;margin:0 auto}
+      /* Custom chevron positioned like screenshot */
+      .select-wrap::after{ content:none; }
+      .hint{font-size:12px;color:var(--muted);margin-top:6px}
+      .checks{display:flex;flex-direction:column;gap:10px;margin:14px auto;max-width:560px}
+      .checks input[type="checkbox"]{accent-color: var(--brand)}
+      .checks label{font-weight:500;color:var(--text)}
+      .cta{display:grid;place-items:center;margin-top:14px;max-width:560px;margin-left:auto;margin-right:auto}
+      .login{margin:14px 0;text-align:center;color:#6b7280}
+
+      /* Password toggle */
+      .input-wrap{position:relative}
+      /* Eye icon like the screenshot: no border, inline icon, subtle grey */
+      .password-toggle{position:absolute;top:50%;transform:translateY(-50%);right:12px;width:24px;height:24px;border:0;background:transparent;display:grid;place-items:center;color:#6b7280;cursor:pointer;padding:0}
+      .password-toggle:hover{color:#4b5563}
+
+      @media (max-width: 720px){
+        .row{grid-template-columns:1fr}
+      }
+    </style>
+  </head>
+  <body class="page">
+    <header>
+      <div class="container site-header">
+        <div class="inner" style="width:100%">
+          <a class="brand" href="#" aria-label="Mentalship Startseite">
+            <img class="brand-logo" src="../Logos/LogoV1.png" alt="Mentalship Logo"/>
+          </a>
+          <div class="toplink"><span class="muted">Hier, um zu suchen?</span> <a href="#">Als Nutzer beitreten</a></div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="hero">
+          <h1>Als Mentaltrainer registieren und neue Kunden erreichen</h1>
+        </div>
+
+        <div class="oauth">
+          <button class="btn btn-apple" type="button"><img src="../Logos/apple.png" alt="Apple"/>Mit Apple fortfahren</button>
+          <button class="btn btn-google" type="button"><span class="g-wrap"><img src="../Logos/google.png" alt="Google"/></span>Weiter mit Google</button>
+        </div>
+
+        <div class="divider" style="max-width:560px;margin-left:auto;margin-right:auto">oder</div>
+
+        <form action="#" method="get" aria-label="Registrierung (statisch)">
+          <div class="row">
+            <div class="field">
+              <label for="first">Vorname</label>
+              <input class="input" id="first" type="text" placeholder="z. B. Alex" />
+            </div>
+            <div class="field">
+              <label for="last">Nachname</label>
+              <input class="input" id="last" type="text" placeholder="z. B. Becker" />
+            </div>
+          </div>
+
+          <div class="field" style="max-width:560px;margin-left:auto;margin-right:auto">
+            <label for="email">E‑Mail</label>
+            <input class="input" id="email" type="email" placeholder="name@beispiel.de" />
+          </div>
+
+          <div class="field" style="max-width:560px;margin-left:auto;margin-right:auto">
+            <label for="pass">Passwort</label>
+            <div class="input-wrap">
+              <input class="input has-toggle" id="pass" type="password" placeholder="Passwort (8 oder mehr Zeichen)" />
+              <button type="button" class="password-toggle" aria-label="Passwort anzeigen" aria-pressed="false" title="Passwort anzeigen">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="field select-wrap">
+            <label for="country">Land</label>
+            <select class="select" id="country">
+              <option>Deutschland</option>
+              <option>Österreich</option>
+              <option>Schweiz</option>
+              <option>Andere</option>
+            </select>
+          </div>
+
+          <div class="checks">
+            <label><input type="checkbox" /> Ich möchte hilfreiche E‑Mails mit Tipps und Job‑Hinweisen erhalten.</label>
+            <label><input type="checkbox" /> Ja, ich verstehe und stimme den <a href="#">Nutzungsbedingungen</a> und der <a href="#">Datenschutzerklärung</a> zu.</label>
+          </div>
+
+          <div class="cta">
+            <a class="btn btn-primary" href="onboarding.html">Konto erstellen</a>
+          </div>
+
+          <div class="login">Bereits ein Konto? <a href="#">Anmelden</a></div>
+        </form>
+      </div>
+    </main>
+
+    <footer></footer>
+    <script>
+      (function(){
+        var pass = document.getElementById('pass');
+        var toggle = document.querySelector('.password-toggle');
+        if(toggle && pass){
+          function setVisible(v){
+            pass.type = v ? 'text' : 'password';
+            toggle.setAttribute('aria-pressed', String(v));
+            toggle.setAttribute('title', v ? 'Passwort verbergen' : 'Passwort anzeigen');
+            toggle.setAttribute('aria-label', v ? 'Passwort verbergen' : 'Passwort anzeigen');
+            toggle.innerHTML = v
+              ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.78 21.78 0 0 1 5.06-5.94m4.91-2.07A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a21.78 21.78 0 0 1-5.06 5.94"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+              : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>';
+          }
+          toggle.addEventListener('click', function(){ setVisible(pass.type !== 'text'); });
+        }
+      })();
+    </script>
+  </body>
+  </html>

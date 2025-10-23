@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mentalship – Registrierung (Mentaltrainer)</title>
+    <link rel="stylesheet" href="styles/mentalship.css" />
+  </head>
+  <body class="page">
+    <header class="site-header">
+      <div class="container inner">
+        <a href="#" class="brand" aria-label="Mentalship Startseite">
+          <img class="brand-logo" src="../Logos/LogoV1.png" alt="Mentalship Logo" />
+          <span class="brand-name">Mentalship</span>
+        </a>
+        <div class="header-actions">
+          <a class="btn btn-ghost" href="#">Zur Startseite</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container" style="max-width: 960px; padding-top: 32px; padding-bottom: 48px;">
+        <h1 style="font-size: 28px; letter-spacing: -0.01em; margin: 0 0 8px;">Registrierung für Mentaltrainer</h1>
+        <p class="muted" style="margin: 0 0 24px;">Erstellen Sie Ihr Profil und werden Sie auf Mentalship sichtbar.</p>
+
+        <div class="stepper" style="--progress: 25%;">
+          <div class="stepper-track"></div>
+          <div class="stepper-progress"></div>
+          <div class="stepper-list">
+            <div class="step is-active">
+              <div class="dot">1</div>
+              <div class="label">Konto</div>
+            </div>
+            <div class="step">
+              <div class="dot">2</div>
+              <div class="label">Beruflich</div>
+            </div>
+            <div class="step">
+              <div class="dot">3</div>
+              <div class="label">Profil</div>
+            </div>
+            <div class="step">
+              <div class="dot">4</div>
+              <div class="label">Bestätigung</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="spacer-16"></div>
+
+        <!-- Aktiver Schritt: Konto -->
+        <section class="card" aria-labelledby="step1-title">
+          <div class="card-head">
+            <div>
+              <h2 id="step1-title" class="section-title">Schritt 1 von 4 — Kontodaten</h2>
+              <p class="section-desc">Basisangaben für Ihr Mentalship-Konto.</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="field">
+                <label class="label" for="vorname">Vorname</label>
+                <input id="vorname" class="input" type="text" placeholder="z. B. Alex" />
+              </div>
+              <div class="field">
+                <label class="label" for="nachname">Nachname</label>
+                <input id="nachname" class="input" type="text" placeholder="z. B. Becker" />
+              </div>
+
+              <div class="field">
+                <label class="label" for="email">E‑Mail</label>
+                <input id="email" class="input" type="email" placeholder="name@beispiel.de" />
+                <div class="hint">Wird für Benachrichtigungen und Login verwendet.</div>
+              </div>
+              <div class="field">
+                <label class="label" for="tel">Telefon (optional)</label>
+                <input id="tel" class="input" type="tel" placeholder="z. B. +49 151 1234567" />
+              </div>
+
+              <div class="field">
+                <label class="label" for="pass">Passwort</label>
+                <input id="pass" class="input" type="password" placeholder="••••••••" />
+                <div class="hint">Mindestens 8 Zeichen.</div>
+              </div>
+              <div class="field">
+                <label class="label" for="pass2">Passwort bestätigen</label>
+                <input id="pass2" class="input" type="password" placeholder="••••••••" />
+              </div>
+
+              <div class="field third">
+                <label class="label" for="land">Land</label>
+                <select id="land" class="select">
+                  <option>Deutschland</option>
+                  <option>Österreich</option>
+                  <option>Schweiz</option>
+                  <option>Andere</option>
+                </select>
+              </div>
+              <div class="field third">
+                <label class="label" for="sprache">Bevorzugte Sprache</label>
+                <select id="sprache" class="select">
+                  <option>Deutsch</option>
+                  <option>Englisch</option>
+                </select>
+              </div>
+              <div class="field third">
+                <label class="label" for="timezone">Zeitzone</label>
+                <select id="timezone" class="select">
+                  <option>Europe/Berlin (UTC+1)</option>
+                  <option>Europe/Vienna (UTC+1)</option>
+                  <option>Europe/Zurich (UTC+1)</option>
+                </select>
+              </div>
+
+              <div class="field full">
+                <label class="label">Abo & Hinweise</label>
+                <div class="pill-group">
+                  <span class="pill is-selected">Newsletter erhalten</span>
+                  <span class="pill">Tipps für Profiloptimierung</span>
+                </div>
+                <div class="hint">Nur visuell – ohne Funktion.</div>
+              </div>
+
+              <div class="field full">
+                <label class="label">AGB & Datenschutz</label>
+                <div class="pill-group">
+                  <span class="pill is-selected">AGB akzeptiert</span>
+                  <span class="pill is-selected">Datenschutz akzeptiert</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="btns">
+              <button class="btn btn-secondary" disabled>Zurück</button>
+            </div>
+            <div class="btns">
+              <a class="btn btn-ghost" href="#">Abbrechen</a>
+              <a class="btn btn-primary" href="#">Weiter</a>
+            </div>
+          </div>
+        </section>
+
+        <div class="spacer-24"></div>
+
+        <!-- Vorschau der nächsten Schritte (statisch, ausgegraut) -->
+        <section class="card dimmed" aria-labelledby="step2-title">
+          <div class="card-head">
+            <div>
+              <h2 id="step2-title" class="section-title">Schritt 2 von 4 — Berufliche Angaben</h2>
+              <p class="section-desc">Fachgebiete, Erfahrung und Sprachen. (Vorschau)</p>
+            </div>
+            <span class="muted">Inaktiv</span>
+          </div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="field full">
+                <label class="label">Einsatzbereiche</label>
+                <div class="pill-group">
+                  <span class="pill is-selected">Sport</span>
+                  <span class="pill">Business</span>
+                  <span class="pill">Lifestyle</span>
+                </div>
+              </div>
+              <div class="field full">
+                <label class="label">Spezialisierungen</label>
+                <div class="pill-group">
+                  <span class="pill">Leistungspsychologie</span>
+                  <span class="pill">Mindfulness</span>
+                  <span class="pill">Führung & Teams</span>
+                  <span class="pill">Stressmanagement</span>
+                </div>
+              </div>
+              <div class="field third">
+                <label class="label">Erfahrung (Jahre)</label>
+                <input class="input" type="number" placeholder="z. B. 6" />
+              </div>
+              <div class="field third">
+                <label class="label">Zertifizierungen</label>
+                <input class="input" type="text" placeholder="z. B. DOSB, EMCC" />
+              </div>
+              <div class="field third">
+                <label class="label">Sprachen</label>
+                <input class="input" type="text" placeholder="z. B. DE, EN" />
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="btns">
+              <button class="btn btn-secondary">Zurück</button>
+            </div>
+            <div class="btns">
+              <a class="btn btn-primary" href="#">Weiter</a>
+            </div>
+          </div>
+        </section>
+
+        <div class="spacer-24"></div>
+
+        <section class="card dimmed" aria-labelledby="step3-title">
+          <div class="card-head">
+            <div>
+              <h2 id="step3-title" class="section-title">Schritt 3 von 4 — Profil & Sichtbarkeit</h2>
+              <p class="section-desc">Foto, Kurzprofil, Konditionen. (Vorschau)</p>
+            </div>
+            <span class="muted">Inaktiv</span>
+          </div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="field full">
+                <label class="label">Profilfoto</label>
+                <div class="avatar-upload">
+                  <div class="avatar-placeholder">Foto</div>
+                  <div class="btns">
+                    <button class="btn btn-secondary">Bild auswählen</button>
+                    <button class="btn btn-ghost">Entfernen</button>
+                  </div>
+                </div>
+              </div>
+              <div class="field full">
+                <label class="label">Kurzbeschreibung</label>
+                <textarea class="textarea" placeholder="Beschreiben Sie Ansatz, Zielgruppen und Arbeitsweise."></textarea>
+              </div>
+              <div class="field third">
+                <label class="label">Stundensatz (EUR)</label>
+                <input class="input" type="number" placeholder="z. B. 120" />
+              </div>
+              <div class="field third">
+                <label class="label">Verfügbarkeit</label>
+                <select class="select">
+                  <option>Flexibel</option>
+                  <option>Werktags</option>
+                  <option>Wochenenden</option>
+                </select>
+              </div>
+              <div class="field third">
+                <label class="label">Ort</label>
+                <input class="input" type="text" placeholder="z. B. München / Remote" />
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="btns">
+              <button class="btn btn-secondary">Zurück</button>
+            </div>
+            <div class="btns">
+              <a class="btn btn-primary" href="#">Weiter</a>
+            </div>
+          </div>
+        </section>
+
+        <div class="spacer-24"></div>
+
+        <section class="card dimmed" aria-labelledby="step4-title">
+          <div class="card-head">
+            <div>
+              <h2 id="step4-title" class="section-title">Schritt 4 von 4 — Bestätigung</h2>
+              <p class="section-desc">Überblick & visuelle Prüfung. (Vorschau)</p>
+            </div>
+            <span class="muted">Inaktiv</span>
+          </div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="field full">
+                <label class="label">Zusammenfassung der Angaben</label>
+                <div style="border:1px solid var(--border); border-radius:12px; background: var(--surface-2); padding:16px;">
+                  <div class="muted">Vorname Nachname, E‑Mail, Einsatzbereiche, Sprachen, Standort, Stundensatz, Kurzbeschreibung …</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <div class="btns">
+              <button class="btn btn-secondary">Zurück</button>
+            </div>
+            <div class="btns">
+              <a class="btn btn-primary" href="#">Registrierung abschließen</a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container inner">
+        <span>© Mentalship</span>
+        <nav class="btns">
+          <a class="btn btn-ghost" href="#">Impressum</a>
+          <a class="btn btn-ghost" href="#">Datenschutz</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+  </html>

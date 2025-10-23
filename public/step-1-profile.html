@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mentalship – Schritt 1/8 · Basisdaten</title>
+    <style>
+      :root{
+        --bg:#ffffff;--text:#0f172a;--muted:#6b7280;--border:#e5e7eb;--surface:#ffffff;
+        --brand:#1e40af;--brand-700:#1e3a8a;--brand-50:#eef2ff;--focus:0 0 0 3px rgba(30,64,175,.20);
+      }
+      *,*:before,*:after{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.5;color:var(--text);background:var(--bg)}
+      a{color:var(--brand);text-decoration:none}
+      a:hover{color:var(--brand-700)}
+      .page{min-height:100vh;display:grid;grid-template-rows:auto 1fr}
+      .container{max-width:960px;margin:0 auto;padding:0 24px}
+
+      /* Header */
+      .site-header{position:sticky;top:0;background:color-mix(in srgb,#fff 88%,transparent);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--border);z-index:10}
+      .site-header .inner{height:68px;display:flex;align-items:center;justify-content:space-between}
+      .brand{display:flex;align-items:center;gap:10px}
+      .brand-logo{height:22px;width:auto}
+      .header-actions{display:flex;align-items:center;gap:12px;position:relative}
+      .icon-btn{width:36px;height:36px;border-radius:9999px;border:1px solid #e6eaf0;background:#fff;display:grid;place-items:center;cursor:pointer}
+      .icon-btn:focus-visible{outline:none;box-shadow:var(--focus)}
+      .menu{position:absolute;top:calc(100% + 8px);right:0;width:260px;background:#fff;border:1px solid #e6eaf0;border-radius:12px;box-shadow:0 10px 30px rgba(15,23,42,.08);padding:12px;display:none}
+      .menu.open{display:block}
+
+      /* Progress */
+      .progress{padding:16px 0 8px}
+      .progress .count{color:#111827;font-weight:700;margin-bottom:8px}
+      .bar{height:8px;border-radius:9999px;background:#edf0f4;overflow:hidden}
+      .bar .fill{height:100%;width:12.5%;background:var(--brand);border-radius:inherit}
+
+      /* Headline */
+      h1{font-size:32px;margin:18px 0 6px;letter-spacing:-.01em}
+      .lead{color:var(--muted);margin:0 0 18px}
+
+      /* Form */
+      form{max-width:720px}
+      .sections{max-width:720px}
+      .section{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:16px 0}
+      .section + .section{border-top:1px solid var(--border)}
+      .i{width:28px;height:28px;border-radius:9999px;border:1px solid #e6eaf0;display:grid;place-items:center;color:#4b5563}
+      .field{display:flex;flex-direction:column;gap:6px}
+      .label{font-weight:700;font-size:14px}
+      .input,.select{height:44px;width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;background:#fff;font:inherit;color:inherit}
+      .input:focus,.select:focus{outline:none;border-color:#9fb5d7;box-shadow:0 0 0 3px rgba(30,64,175,.12)}
+      /* Match select styling from signup (country) */
+      .select{appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:44px;
+        background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2355637a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
+        background-repeat:no-repeat;background-position:right 12px center;background-size:12px 12px;
+      }
+      .hint{font-size:12px;color:var(--muted)}
+
+      .pills{display:flex;gap:8px;flex-wrap:wrap}
+      .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #d1d5db;border-radius:9999px;background:#fff;cursor:pointer}
+      .pill.is-selected{border-color:var(--brand);background:var(--brand-50);color:#0f172a}
+
+      .lang-list{display:grid;gap:8px}
+      .lang-row{display:flex;gap:8px;align-items:center}
+      .lang-row .select{flex:1}
+      .remove-btn{height:32px;width:32px;display:inline-grid;place-items:center;border-radius:9999px;border:1px solid #d1d5db;background:#fff;color:#6b7280;cursor:pointer}
+      .remove-btn:hover{border-color:#c7cdd6;color:#4b5563}
+      .add-btn{margin-top:6px;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:9999px;border:1px solid transparent;background:transparent;cursor:pointer;color:var(--brand);font-weight:700}
+      .add-btn:hover{background:var(--brand-50)}
+
+      .upload{
+        border:1px dashed #c7cdd6;border-radius:12px;background:#fafbfc;padding:18px;display:flex;align-items:center;gap:12px
+      }
+      .upload .ico{width:36px;height:36px;border-radius:8px;border:1px solid #e6eaf0;display:grid;place-items:center;color:#64748b;background:#fff}
+      .upload strong{display:block}
+
+      /* Info callout */
+      .callout{margin-top:20px;padding:18px;border:1px solid #dbe4f1;background:#f3f6fb;border-radius:16px;display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:flex-start}
+      .callout .ic{width:28px;height:28px;border-radius:9999px;background:#334155;color:#fff;display:grid;place-items:center;font-weight:800}
+      .callout h3{margin:2px 0 4px;font-size:18px}
+      .callout p{margin:0;color:#374151}
+      
+
+      .form-foot{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+      .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9999px;border:1px solid var(--border);background:#fff;color:#111827;font-weight:700;cursor:pointer}
+      .btn-primary{background:var(--brand);border-color:var(--brand);color:#fff}
+      .btn-primary:hover{background:var(--brand-700)}
+
+      @media (max-width: 760px){
+        .grid{grid-template-columns:1fr}
+      }
+    </style>
+  </head>
+  <body class="page">
+    <header class="site-header">
+      <div class="container inner">
+        <a class="brand" href="#" aria-label="Mentalship Startseite">
+          <img class="brand-logo" src="../Logos/LogoV1.png" alt="Mentalship Logo" />
+        </a>
+        <div class="header-actions">
+          <button class="icon-btn" id="profileBtn" aria-label="Profilmenü öffnen" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/>
+            </svg>
+          </button>
+          <div class="menu" id="profileMenu" role="menu" aria-hidden="true">
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 6px 10px;border-bottom:1px solid var(--border)">
+              <div style="width:40px;height:40px;border-radius:9999px;border:1px solid #e5e7eb;display:grid;place-items:center;color:#64748b">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:800">Laurenzus Benzus</div>
+                <div style="color:var(--muted);font-size:12px">Mentaltrainer</div>
+              </div>
+            </div>
+            <ul style="list-style:none;margin:8px 0 0;padding:0">
+              <li style="padding:10px 8px;border-radius:10px;cursor:pointer">Konto schließen</li>
+              <li style="padding:10px 8px;border-radius:10px;cursor:pointer">Abmelden</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <!-- Progress header -->
+        <div class="progress">
+          <div class="count">1/8</div>
+          <div class="bar"><div class="fill" style="width:12.5%"></div></div>
+        </div>
+
+        <h1>Los gehts! Lass uns mit deinen Basisdaten starten.</h1>
+        <p class="lead">Diese Angaben helfen uns, dein Profil korrekt aufzubauen. Du kannst alles später bearbeiten.</p>
+
+        <form action="#" method="get" aria-label="Schritt 1/8 – Basisdaten (statisch)">
+          <div class="sections">
+            <!-- Geschlecht -->
+            <section class="section">
+              <div class="i" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="content">
+                <div class="field">
+                  <label class="label">Geschlecht</label>
+                  <div class="pills" role="group" aria-label="Geschlecht wählen">
+                    <button type="button" class="pill is-selected">Weiblich</button>
+                    <button type="button" class="pill">Männlich</button>
+                    <button type="button" class="pill">Divers</button>
+                    <button type="button" class="pill">Keine Angabe</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Geburtsdatum -->
+            <section class="section">
+              <div class="i" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="content">
+                <div class="field">
+                  <label class="label" for="dob">Geburtsdatum</label>
+                  <input class="input" id="dob" type="text" placeholder="TT.MM.JJJJ" inputmode="numeric" />
+                </div>
+              </div>
+            </section>
+
+            <!-- Sprachen -->
+            <section class="section">
+              <div class="i" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div class="content">
+                <div class="field full">
+                  <label class="label">Ich spreche</label>
+                  <div id="langList" class="lang-list">
+                    <div class="lang-row">
+                      <select class="select" aria-label="Sprache">
+                        <option>Deutsch</option>
+                        <option>Englisch</option>
+                        <option>Französisch</option>
+                        <option>Spanisch</option>
+                        <option>Italienisch</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button type="button" class="add-btn" id="addLang" aria-label="Weitere Sprache hinzufügen">+
+                    <span>Spräche hinzufügen</span>
+                  </button>
+                  <div class="hint">Du kannst mehrere Sprachen hinzufügen.</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Standort -->
+            <section class="section">
+              <div class="i" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="content">
+                <div class="field full">
+                  <label class="label" for="location">Standort</label>
+                  <input class="input" id="location" type="text" placeholder="Stadt, Region (Autosuche)" />
+                </div>
+              </div>
+            </section>
+
+            <!-- Profilfoto Upload -->
+            <section class="section">
+              <div class="i" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M21 15l-3.5-3.5a2 2 0 0 0-3 0L9 18"/></svg>
+              </div>
+              <div class="content">
+                <div class="field full">
+                  <label class="label">Profilfoto</label>
+                  <div class="upload">
+                    <div class="ico" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M21 15l-3.5-3.5a2 2 0 0 0-3 0L9 18"/></svg>
+                    </div>
+                    <div>
+                      <strong>Dateien hochladen oder per Drag & Drop</strong>
+                      <div class="hint">PNG, JPG bis zu 10 MB — quadratisches Bild empfohlen.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Info callout -->
+          <div class="callout" role="note" aria-label="Hinweis">
+            <div class="ic">i</div>
+            <div>
+              <h3>Warum fragen wir das?</h3>
+              <p>Diese Informationen helfen uns, dich mit den relevantesten Anfragen und Klienten zu verbinden und dein Profil optimal vorzuschlagen.</p>
+            </div>
+          </div>
+
+          <div class="form-foot">
+            <a class="btn" href="onboarding.html">Zurück</a>
+            <a class="btn btn-primary" href="step-2-company.html">Weiter zu Unternehmensangaben</a>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script>
+      (function(){
+        // Profile menu toggle
+        const btn = document.getElementById('profileBtn');
+        const menu = document.getElementById('profileMenu');
+        if(btn && menu){
+          btn.addEventListener('click', ()=>{
+            const open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+            menu.setAttribute('aria-hidden', String(!open));
+          });
+          document.addEventListener('click',(e)=>{
+            if(!menu.classList.contains('open')) return;
+            if(!menu.contains(e.target) && !btn.contains(e.target)){
+              menu.classList.remove('open');
+              btn.setAttribute('aria-expanded','false');
+              menu.setAttribute('aria-hidden','true');
+            }
+          });
+        }
+
+        // Add language rows (visual only)
+        const add = document.getElementById('addLang');
+        const list = document.getElementById('langList');
+        if(add && list){
+          function updateRemoveButtons(){
+            const rows = Array.from(list.querySelectorAll('.lang-row'));
+            rows.forEach((row, idx)=>{
+              const existing = row.querySelector('.remove-btn');
+              if(idx === 0){
+                if(existing) existing.remove();
+              } else if(!existing){
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'remove-btn';
+                btn.title = 'Sprache entfernen';
+                btn.setAttribute('aria-label','Sprache entfernen');
+                btn.textContent = '✕';
+                row.appendChild(btn);
+              }
+            });
+          }
+          function mkRow(){
+            const row = document.createElement('div');
+            row.className = 'lang-row';
+            row.innerHTML = '<select class="select" aria-label="Weitere Sprache">\
+              <option>Deutsch</option><option>Englisch</option><option>Französisch</option><option>Spanisch</option><option>Italienisch</option>\
+            </select>';
+            return row;
+          }
+          add.addEventListener('click', function(){
+            list.appendChild(mkRow());
+            updateRemoveButtons();
+          });
+          // Delegate remove clicks
+          list.addEventListener('click', function(e){
+            const btn = e.target.closest('.remove-btn');
+            if(!btn) return;
+            const row = btn.closest('.lang-row');
+            if(!row) return;
+            row.remove();
+            updateRemoveButtons();
+          });
+          // Initialize state so first row has no remove and future rows do
+          updateRemoveButtons();
+        }
+
+        // Gender single-select behavior
+        const genderGroup = document.querySelector('[aria-label="Geschlecht wählen"]');
+        if(genderGroup){
+          genderGroup.addEventListener('click', function(e){
+            const btn = e.target.closest('.pill');
+            if(!btn) return;
+            Array.from(genderGroup.querySelectorAll('.pill')).forEach(p=>p.classList.remove('is-selected'));
+            btn.classList.add('is-selected');
+          });
+        }
+
+        // (Hinweis bleibt dauerhaft sichtbar; kein Toggle nötig)
+      })();
+    </script>
+  </body>
+  </html>
