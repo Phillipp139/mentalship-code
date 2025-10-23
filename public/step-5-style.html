@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mentalship – Schritt 5/8 · Selbstbeschreibung & Coaching‑Stil</title>
+    <style>
+      :root{ --bg:#ffffff;--text:#0f172a;--muted:#6b7280;--border:#e5e7eb;--brand:#1e40af;--brand-700:#1e3a8a;--brand-50:#eef2ff;--focus:0 0 0 3px rgba(30,64,175,.20); }
+      *,*:before,*:after{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.5;color:var(--text);background:var(--bg)}
+      a{color:var(--brand);text-decoration:none}
+      a:hover{color:var(--brand-700)}
+      .page{min-height:100vh;display:grid;grid-template-rows:auto 1fr}
+      .container{max-width:960px;margin:0 auto;padding:0 24px}
+
+      /* Header */
+      .site-header{position:sticky;top:0;background:color-mix(in srgb,#fff 88%,transparent);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--border);z-index:10}
+      .site-header .inner{height:68px;display:flex;align-items:center;justify-content:space-between}
+      .brand{display:flex;align-items:center;gap:10px}
+      .brand-logo{height:22px;width:auto}
+      .header-actions{display:flex;align-items:center;gap:12px;position:relative}
+      .icon-btn{width:36px;height:36px;border-radius:9999px;border:1px solid #e6eaf0;background:#fff;display:grid;place-items:center;cursor:pointer}
+      .icon-btn:focus-visible{outline:none;box-shadow:var(--focus)}
+      .menu{position:absolute;top:calc(100% + 8px);right:0;width:260px;background:#fff;border:1px solid #e6eaf0;border-radius:12px;box-shadow:0 10px 30px rgba(15,23,42,.08);padding:12px;display:none}
+      .menu.open{display:block}
+
+      /* Progress */
+      .progress{padding:16px 0 8px}
+      .progress .count{color:#111827;font-weight:700;margin-bottom:8px}
+      .bar{height:8px;border-radius:9999px;background:#edf0f4;overflow:hidden}
+      .bar .fill{height:100%;width:62.5%;background:var(--brand);border-radius:inherit}
+
+      /* Headline */
+      h1{font-size:32px;margin:18px 0 6px;letter-spacing:-.01em}
+      .lead{color:var(--muted);margin:0 0 20px}
+      .subtle{color:var(--muted);font-size:14px;margin:14px 0 8px}
+
+      /* Sections */
+      .sections{max-width:720px}
+      .section{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:16px 0}
+      .section + .section{border-top:1px solid var(--border)}
+      .i{width:28px;height:28px;border-radius:9999px;border:1px solid #e6eaf0;display:grid;place-items:center;color:#4b5563}
+      .label{font-weight:700}
+      .hint{font-size:12px;color:var(--muted)}
+
+      /* Likert (horizontal segmented, full width) */
+      .likert{display:flex;gap:0;margin-top:8px}
+      .opt-row{flex:1;display:flex;align-items:center;justify-content:center;height:52px;padding:0 12px;border:1px solid #d1d5db;background:var(--brand-50);color:#0f172a;border-radius:0;cursor:pointer;white-space:nowrap}
+      .opt-row + .opt-row{border-left:none}
+      .opt-row:first-child{border-top-left-radius:26px;border-bottom-left-radius:26px}
+      .opt-row:last-child{border-top-right-radius:26px;border-bottom-right-radius:26px}
+      .opt-row[aria-checked="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+      .opt-row:focus-visible{outline:none;box-shadow:var(--focus)}
+      .ends{display:none}
+
+      /* Footer */
+      .form-foot{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+      .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9999px;border:1px solid var(--border);background:#fff;color:#111827;font-weight:700;cursor:pointer}
+      .btn-primary{background:var(--brand);border-color:var(--brand);color:#fff}
+      .btn-primary:hover{background:var(--brand-700)}
+    </style>
+  </head>
+  <body class="page">
+    <header class="site-header">
+      <div class="container inner">
+        <a class="brand" href="#" aria-label="Mentalship Startseite">
+          <img class="brand-logo" src="../Logos/LogoV1.png" alt="Mentalship Logo" />
+        </a>
+        <div class="header-actions">
+          <button class="icon-btn" id="profileBtn" aria-label="Profilmenü öffnen" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/>
+            </svg>
+          </button>
+          <div class="menu" id="profileMenu" role="menu" aria-hidden="true">
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 6px 10px;border-bottom:1px solid var(--border)">
+              <div style="width:40px;height:40px;border-radius:9999px;border:1px solid #e5e7eb;display:grid;place-items:center;color:#64748b">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:800">Laurenzus Benzus</div>
+                <div style="color:var(--muted);font-size:12px">Mentaltrainer</div>
+              </div>
+            </div>
+            <ul style="list-style:none;margin:8px 0 0;padding:0">
+              <li style="padding:10px 8px;border-radius:10px;cursor:pointer">Konto schließen</li>
+              <li style="padding:10px 8px;border-radius:10px;cursor:pointer">Abmelden</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" role="main">
+      <div class="progress" aria-label="Fortschritt">
+        <div class="count">Schritt 5 von 8</div>
+        <div class="bar"><div class="fill"></div></div>
+      </div>
+
+      <h1>Selbstbeschreibung & Coaching‑Stil</h1>
+      <p class="lead">Deine Persönlichkeit macht den Unterschied. Mit wenigen kurzen Einschätzungen zeigst du, wie du arbeitest – damit dich Sportler finden, die wirklich zu dir passen.</p>
+
+      <form action="#" method="get" aria-label="Schritt 5/8 – Selbstbeschreibung & Coaching‑Stil (statisch)">
+        <div class="sections">
+          <!-- Kommunikationsstil -->
+          <section class="section">
+            <div class="i" aria-hidden="true">💬</div>
+            <div>
+              <div class="subtle">Kommunikationsstil</div>
+              <div class="label" id="q1lbl">Wie würdest du deinen Kommunikationsstil beschreiben?</div>
+              <div id="q1" class="likert" role="radiogroup" aria-labelledby="q1lbl">
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="5">Sanft</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="4">Eher sanft</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="3">Keine Präferenz</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="2">Eher direkt</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="1">Direkt</button>
+              </div>
+
+              <div class="label" id="q2lbl" style="margin-top:14px">Wie gestaltest du Feedback?</div>
+              <div id="q2" class="likert" role="radiogroup" aria-labelledby="q2lbl">
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="5">Ermutigend‑motivierend</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="4">Eher ermutigend</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="3">Ausgewogen</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="2">Eher kritisch</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="1">Kritisch‑konfrontativ</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Struktur und Flexibilität -->
+          <section class="section">
+            <div class="i" aria-hidden="true">🧩</div>
+            <div>
+              <div class="subtle">Struktur und Flexibilität</div>
+              <div class="label" id="q3lbl">Wie planst du deine Sessions?</div>
+              <div id="q3" class="likert" role="radiogroup" aria-labelledby="q3lbl">
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="5">Flexibel</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="4">Eher flexibel</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="3">Ausgewogen</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="2">Eher strukturiert</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="1">Strukturiert</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Rolle als Coach -->
+          <section class="section">
+            <div class="i" aria-hidden="true">🧑‍🏫</div>
+            <div>
+              <div class="subtle">Rolle als Coach</div>
+              <div class="label" id="q4lbl">Wie siehst du deine Rolle im Coaching?</div>
+              <div id="q4" class="likert" role="radiogroup" aria-labelledby="q4lbl">
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="5">Trainer mit klaren Ansagen</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="4">Eher Trainer</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="3">Ausgewogen</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="2">Eher Mentor</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="1">Mentor/Begleiter</button>
+              </div>
+
+              <div class="label" id="q5lbl" style="margin-top:14px">Wie würdest du deine Coaching‑Haltung beschreiben?</div>
+              <div id="q5" class="likert" role="radiogroup" aria-labelledby="q5lbl">
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="5">Analytiker</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="4">Eher analytisch</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="3">Ausgewogen</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="2">Eher inspirierend</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="1">Inspirator</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Arbeitsweise -->
+          <section class="section">
+            <div class="i" aria-hidden="true">🛠️</div>
+            <div>
+              <div class="subtle">Arbeitsweise</div>
+              <div class="label" id="q6lbl">Wie arbeitest du inhaltlich?</div>
+              <div id="q6" class="likert" role="radiogroup" aria-labelledby="q6lbl">
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="5">Reflexiv</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="4">Eher reflexiv</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="3">Ausgewogen</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="2">Eher praktisch</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="1">Praktisch</button>
+              </div>
+
+              <div class="label" id="q7lbl" style="margin-top:14px">Welche Grundlage prägt deine Methoden?</div>
+              <div id="q7" class="likert" role="radiogroup" aria-labelledby="q7lbl">
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="5">Intuitiv</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="4">Eher intuitiv</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="3">Ausgewogen</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="2">Eher wissenschaftlich</button>
+                <button type="button" class="opt-row" role="radio" aria-checked="false" data-val="1">Wissenschaftlich</button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="form-foot">
+          <a class="btn" href="step-4-contents.html">Zurück</a>
+          <a class="btn btn-primary" href="step-6-prices.html">Weiter</a>
+        </div>
+      </form>
+    </main>
+
+    <script>
+      (function(){
+        // Header menu toggle
+        const btn = document.getElementById('profileBtn');
+        const menu = document.getElementById('profileMenu');
+        if(btn && menu){
+          btn.addEventListener('click', ()=>{
+            const open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+            menu.setAttribute('aria-hidden', String(!open));
+          });
+          document.addEventListener('click',(e)=>{
+            if(!menu.classList.contains('open')) return;
+            if(!menu.contains(e.target) && !btn.contains(e.target)){
+              menu.classList.remove('open');
+              btn.setAttribute('aria-expanded','false');
+              menu.setAttribute('aria-hidden','true');
+            }
+          });
+        }
+
+        // Persistence under msDraft.profile.self_assessment
+        const STORE_KEY = 'msDraft';
+        function loadDraft(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}')||{}; }catch(e){ return {}; } }
+        function saveDraft(patch){
+          const cur = loadDraft();
+          const next = Object.assign({}, cur, patch);
+          localStorage.setItem(STORE_KEY, JSON.stringify(next));
+        }
+        function getSA(){ const d = loadDraft(); return (d.profile && d.profile.self_assessment) ? d.profile.self_assessment : {}; }
+        function setSA(obj){ const d = loadDraft(); const profile = Object.assign({}, d.profile||{}); profile.self_assessment = obj; saveDraft({profile}); }
+
+        function wireLikert(id, key){
+          const wrap = document.getElementById(id); if(!wrap) return;
+          function setVal(v){
+            Array.from(wrap.querySelectorAll('[role="radio"]')).forEach(p=>{
+              const pv = Number(p.getAttribute('data-val'));
+              p.setAttribute('aria-checked', String(pv === Number(v)));
+            });
+            const sa = Object.assign({}, getSA()); sa[key] = Number(v); setSA(sa);
+          }
+          wrap.addEventListener('click', (e)=>{
+            const b = e.target.closest('[role="radio"]'); if(!b) return; setVal(b.getAttribute('data-val'));
+          });
+          wrap.addEventListener('keydown', (e)=>{
+            if(!['ArrowLeft','ArrowRight'].includes(e.key)) return;
+            e.preventDefault();
+            const cur = Number(getSA()[key]||0) || 0; let next = cur || 0;
+            next = e.key==='ArrowRight' ? Math.min(5, (next||0)+1) : Math.max(1, (next||1)-1);
+            setVal(next);
+          });
+          // hydrate
+          const sa = getSA(); if(sa && sa[key]) setVal(sa[key]);
+        }
+
+        wireLikert('q1','comm_directness');
+        wireLikert('q2','feedback_style');
+        wireLikert('q3','session_planning');
+        wireLikert('q4','coach_role');
+        wireLikert('q5','coaching_posture');
+        wireLikert('q6','work_mode');
+        wireLikert('q7','method_basis');
+      })();
+    </script>
+  </body>
+  </html>

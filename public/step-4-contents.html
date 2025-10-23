@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mentalship – Schritt 4/8 · Eigene Inhalte</title>
+    <style>
+      :root{
+        --bg:#ffffff;--text:#0f172a;--muted:#6b7280;--border:#e5e7eb;--surface:#ffffff;
+        --brand:#1e40af;--brand-700:#1e3a8a;--brand-50:#eef2ff;--focus:0 0 0 3px rgba(30,64,175,.20);
+      }
+      *,*:before,*:after{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.5;color:var(--text);background:var(--bg)}
+      a{color:var(--brand);text-decoration:none}
+      a:hover{color:var(--brand-700)}
+      .page{min-height:100vh;display:grid;grid-template-rows:auto 1fr}
+      .container{max-width:1120px;margin:0 auto;padding:0 24px}
+
+      /* Header / Progress */
+      .site-header{position:sticky;top:0;background:color-mix(in srgb,#fff 88%,transparent);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--border);z-index:10}
+      .site-header .inner{height:68px;display:flex;align-items:center;justify-content:space-between}
+      .brand{display:flex;align-items:center;gap:10px}
+      .brand-logo{height:22px;width:auto}
+      .header-actions{display:flex;align-items:center;gap:12px;position:relative}
+      .icon-btn{width:36px;height:36px;border-radius:9999px;border:1px solid #e6eaf0;background:#fff;display:grid;place-items:center;cursor:pointer}
+      .icon-btn:focus-visible{outline:none;box-shadow:var(--focus)}
+      .menu{position:absolute;top:calc(100% + 8px);right:0;width:260px;background:#fff;border:1px solid #e6eaf0;border-radius:12px;box-shadow:0 10px 30px rgba(15,23,42,.08);padding:12px;display:none}
+      .menu.open{display:block}
+      .progress{padding:16px 0 8px}
+      .progress .count{color:#111827;font-weight:700;margin-bottom:8px}
+      .bar{height:8px;border-radius:9999px;background:#edf0f4;overflow:hidden}
+      .bar .fill{height:100%;width:50%;background:var(--brand);border-radius:inherit}
+
+      /* Headline */
+      h1{font-size:32px;margin:18px 0 6px;letter-spacing:-.01em}
+      .lead{color:var(--muted);margin:0 0 20px}
+
+      /* Cards and inputs */
+      .card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 16px}
+      .card h2{margin:0 0 8px;font-size:18px}
+      .sub{color:var(--muted);font-size:14px;margin:0 0 10px}
+      .input{height:44px;width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:10px;background:#fff;font:inherit;color:inherit}
+      .input.small{height:36px;padding:6px 10px;border-radius:8px}
+      .input:focus{outline:none;border-color:#9fb5d7;box-shadow:0 0 0 3px rgba(30,64,175,.12)}
+      .textarea{min-height:84px;resize:vertical}
+      .select{height:36px;padding:6px 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff;font:inherit;color:inherit;appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:36px;
+        background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2355637a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
+        background-repeat:no-repeat;background-position:right 10px center;background-size:12px 12px;
+      }
+      .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+      .chips{display:flex;gap:8px;flex-wrap:wrap}
+      .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #d1d5db;border-radius:9999px;background:#fff;cursor:pointer}
+      .chip.is-selected{border-color:var(--brand);background:var(--brand-50)}
+      .opt{position:relative;background:#fff;border:2px solid #d1d5db;border-radius:14px;padding:14px;min-height:84px;display:flex;align-items:center;gap:10px;cursor:pointer}
+      .opt:hover{border-color:#9fb5d7}
+      .opt.is-selected{border-color:var(--brand);background:#fff}
+      .opt .radio{width:18px;height:18px;border-radius:9999px;border:2px solid #9fb5d7}
+      .opt.is-selected .radio{border-color:var(--brand);background:radial-gradient(circle at 50% 50%, var(--brand) 55%, transparent 56%)}
+      .icon{font-size:18px}
+
+      /* Repeatables and list */
+      .rep{border:1px solid #dbe4f1;background:#f8fafc;border-radius:12px;padding:12px;margin-top:12px}
+      .mini-actions{display:flex;align-items:center;gap:8px;margin-top:10px}
+      .btn{display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 12px;border-radius:9999px;border:1px solid var(--border);background:#fff;color:#111827;font-weight:700;cursor:pointer;text-decoration:none}
+      .btn-primary{height:44px;background:var(--brand);border-color:var(--brand);color:#fff}
+      .btn-primary:hover{background:var(--brand-700)}
+      .btn-tonal{border:1px solid var(--brand);color:var(--brand)}
+      .btn-tonal:hover{background:var(--brand-50)}
+      .remove-btn{border:1px solid #d1d5db;color:#6b7280}
+      .list{display:grid;gap:10px;margin-top:12px}
+      .item{border:1px solid #e5e7eb;border-radius:12px;padding:12px;display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;background:#fff}
+      .item .ic{font-size:20px;width:40px;height:40px;display:grid;place-items:center;border:1px solid #e6eaf0;border-radius:8px;background:#f8fafc}
+      .actions{display:flex;gap:8px}
+
+      /* Upload (match Step 1 profile photo) */
+      .upload{border:1px dashed #c7cdd6;border-radius:12px;background:#fafbfc;padding:18px;display:flex;align-items:center;gap:12px;cursor:pointer}
+      .upload .ico{width:36px;height:36px;border-radius:8px;border:1px solid #e6eaf0;display:grid;place-items:center;color:#64748b;background:#fff}
+      .upload strong{display:block}
+
+      /* Footer (static, like other steps) */
+      .form-foot{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+      .btn-ghost{background:transparent;border-color:transparent;color:#374151}
+      .hint{font-size:12px;color:var(--muted)}
+    </style>
+  </head>
+  <body class="page">
+    <header class="site-header">
+      <div class="container inner">
+        <a class="brand" href="#" aria-label="Mentalship Startseite">
+          <img class="brand-logo" src="../Logos/LogoV1.png" alt="Mentalship Logo" />
+        </a>
+        <div class="header-actions">
+          <button class="icon-btn" id="profileBtn" aria-label="Profilmenü öffnen" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/>
+            </svg>
+          </button>
+          <div class="menu" id="profileMenu" role="menu" aria-hidden="true">
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 6px 10px;border-bottom:1px solid var(--border)">
+              <div style="width:40px;height:40px;border-radius:9999px;border:1px solid #e5e7eb;display:grid;place-items:center;color:#64748b">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:800">Laurenzus Benzus</div>
+                <div style="color:var(--muted);font-size:12px">Mentaltrainer</div>
+              </div>
+            </div>
+            <ul style="list-style:none;margin:8px 0 0;padding:0">
+              <li style="padding:10px 8px;border-radius:10px;cursor:pointer">Konto schließen</li>
+              <li style="padding:10px 8px;border-radius:10px;cursor:pointer">Abmelden</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" role="main">
+      <div class="progress" aria-label="Fortschritt">
+        <div class="count">Schritt 4 von 8</div>
+        <div class="bar"><div class="fill"></div></div>
+      </div>
+
+      <h1>Eigene Inhalte</h1>
+      <p class="lead">Füge Inhalte wie Podcasts, Bücher, Kurse oder Artikel hinzu und entscheide, ob sie auf deinem Profil sichtbar sein sollen.</p>
+
+      <form action="#" method="get" aria-label="Schritt 4/8 – Eigene Inhalte (statisch)">
+        <section class="card" aria-labelledby="q1">
+          <h2 id="q1">Hast du eigene Inhalte, die du auf deinem Profil zeigen möchtest?</h2>
+          <p class="sub">Zum Beispiel Podcasts, Bücher, Kurse oder Artikel.</p>
+          <div class="chips" id="contentQuestion" role="group" aria-label="Eigene Inhalte vorhanden?">
+            <button type="button" class="chip" data-val="yes">Ja, ich möchte eigene Inhalte hinzufügen</button>
+            <button type="button" class="chip" data-val="no">Nein, ich habe aktuell keine Inhalte</button>
+          </div>
+        </section>
+
+        <section id="contentEditor" class="card" style="display:none" aria-labelledby="editor">
+          <div class="title-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <h2 id="editor" style="margin:0">Inhalt hinzufügen</h2>
+            <button type="button" id="btnAddAnother" class="btn btn-tonal" style="display:none" title="Weiteren Inhalt hinzufügen" aria-label="Weiteren Inhalt hinzufügen">+</button>
+          </div>
+          <div class="sub">Wähle zuerst eine Kategorie und ergänze dann die Details.</div>
+
+          <div id="typeGrid" class="grid-3" role="radiogroup" aria-label="Kategorie wählen">
+            <div class="opt is-selected" data-val="podcast" tabindex="0" role="radio" aria-checked="true"><div class="radio"></div><span class="icon">🎧</span> Podcast</div>
+            <div class="opt" data-val="book" tabindex="0" role="radio" aria-checked="false"><div class="radio"></div><span class="icon">📘</span> Buch / Publikation</div>
+            <div class="opt" data-val="course" tabindex="0" role="radio" aria-checked="false"><div class="radio"></div><span class="icon">💻</span> Online‑Kurs / Programm</div>
+            <div class="opt" data-val="article" tabindex="0" role="radio" aria-checked="false"><div class="radio"></div><span class="icon">📰</span> Artikel / Blog</div>
+            <div class="opt" data-val="talk" tabindex="0" role="radio" aria-checked="false"><div class="radio"></div><span class="icon">🎤</span> Vortrag / Event</div>
+            <div class="opt" data-val="other" tabindex="0" role="radio" aria-checked="false"><div class="radio"></div><span class="icon">➕</span> Sonstiges</div>
+          </div>
+
+          <div class="rep" id="contentForm">
+            <div class="grid">
+              <div>
+                <label class="sub" for="c-title">Titel<span aria-hidden="true" style="color:#ef4444">*</span></label>
+                <input id="c-title" class="input" type="text" placeholder="Titel des Inhalts" />
+              </div>
+              <div>
+                <label class="sub" for="c-url">Link / URL (optional)</label>
+                <input id="c-url" class="input" type="url" placeholder="https://…" />
+              </div>
+            </div>
+            <label class="sub" for="c-desc" style="display:block;margin-top:8px">Kurzbeschreibung (max. 200 Zeichen)</label>
+            <textarea id="c-desc" class="input textarea" maxlength="200" placeholder="Kurz beschreiben …"></textarea>
+            <div class="grid" style="margin-top:8px">
+              <div>
+                <label class="sub" for="c-image-file">Bild / Cover (optional)</label>
+                <div id="imgUpload" class="upload" role="button" tabindex="0" aria-label="Bild hochladen oder per Drag & Drop">
+                  <div class="ico" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M21 15l-3.5-3.5a2 2 0 0 0-3 0L9 18"/></svg>
+                  </div>
+                  <div>
+                    <strong>Bild hochladen oder per Drag & Drop</strong>
+                    <div class="hint">PNG, JPG bis 10 MB — Querformat empfohlen.</div>
+                  </div>
+                </div>
+                <input id="c-image-file" type="file" accept="image/*" style="display:none" />
+                <input id="c-image" type="hidden" />
+                <div id="imgPreview" class="mini-actions" style="display:none;margin-top:8px">
+                  <img id="imgThumb" alt="Bildvorschau" style="height:56px;border-radius:8px;border:1px solid #e6eaf0;background:#fff" />
+                  <button type="button" id="btnClearImg" class="remove-btn" title="Bild entfernen" aria-label="Bild entfernen">✕</button>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap">
+                <label class="chip"><input id="c-visible" type="checkbox" /> Auf Profil anzeigen</label>
+                <label class="chip"><input id="c-sellable" type="checkbox" /> Für spätere Vermarktung freigeben</label>
+              </div>
+            </div>
+            <div class="mini-actions">
+              <button id="btnAdd" type="button" class="btn btn-tonal">Speichern & hinzufügen</button>
+            </div>
+          </div>
+
+          <div id="contentList" class="list" aria-live="polite" aria-label="Hinzugefügte Inhalte"></div>
+          <div id="emptyState" class="hint">Du hast noch keine eigenen Inhalte hinzugefügt.</div>
+        </section>
+
+        <div class="form-foot">
+          <a class="btn" href="step-3-offer.html">Zurück</a>
+          <span></span>
+          <a class="btn btn-primary" href="step-5-style.html">Weiter</a>
+        </div>
+      </form>
+    </main>
+
+    <script>
+      (function(){
+        // Header menu toggle
+        const btn = document.getElementById('profileBtn');
+        const menu = document.getElementById('profileMenu');
+        if(btn && menu){
+          btn.addEventListener('click', ()=>{
+            const open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+            menu.setAttribute('aria-hidden', String(!open));
+          });
+          document.addEventListener('click',(e)=>{
+            if(!menu.classList.contains('open')) return;
+            if(!menu.contains(e.target) && !btn.contains(e.target)){
+              menu.classList.remove('open');
+              btn.setAttribute('aria-expanded','false');
+              menu.setAttribute('aria-hidden','true');
+            }
+          });
+        }
+
+        // Draft persistence under msDraft.profile.contents
+        const STORE_KEY = 'msDraft';
+        function loadDraft(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}')||{}; }catch(e){ return {}; } }
+        function saveDraft(patch){
+          const cur = loadDraft();
+          const next = Object.assign({}, cur, patch);
+          localStorage.setItem(STORE_KEY, JSON.stringify(next));
+        }
+        function getContents(){
+          const d = loadDraft();
+          return (d.profile && Array.isArray(d.profile.contents)) ? d.profile.contents : [];
+        }
+        function setContents(arr){
+          const d = loadDraft();
+          const profile = Object.assign({}, d.profile||{});
+          profile.contents = arr;
+          saveDraft({ profile });
+        }
+
+        // Q1 Yes/No
+        const qWrap = document.getElementById('contentQuestion');
+        const editor = document.getElementById('contentEditor');
+        const yesNo = {yes: null, no: null};
+        if(qWrap){
+          qWrap.addEventListener('click', function(e){
+            const b = e.target.closest('.chip'); if(!b) return;
+            const v = b.getAttribute('data-val');
+            Array.from(qWrap.querySelectorAll('.chip')).forEach(c=>c.classList.remove('is-selected'));
+            b.classList.add('is-selected');
+            if(v === 'no'){
+              // Weiter zur nächsten Seite (Step 5 – Coaching‑Stil)
+              window.location.href = 'step-5-style.html';
+            } else {
+              editor.style.display = '';
+            }
+          });
+        }
+
+        // Category radio cards
+        const typeGrid = document.getElementById('typeGrid');
+        let currentType = 'podcast';
+        function setType(val){
+          currentType = val;
+          Array.from(typeGrid.querySelectorAll('.opt')).forEach(c=>{
+            const sel = c.getAttribute('data-val') === val;
+            c.classList.toggle('is-selected', sel);
+            c.setAttribute('aria-checked', String(sel));
+          });
+        }
+        if(typeGrid){
+          typeGrid.addEventListener('click', (e)=>{ const card = e.target.closest('.opt'); if(!card) return; setType(card.getAttribute('data-val')); });
+          typeGrid.addEventListener('keydown', (e)=>{ if(e.key!=='Enter'&&e.key!==' ') return; const card = e.target.closest('.opt'); if(!card) return; e.preventDefault(); setType(card.getAttribute('data-val')); });
+        }
+
+        // Form fields
+        const fTitle = document.getElementById('c-title');
+        const fDesc = document.getElementById('c-desc');
+        const fUrl = document.getElementById('c-url');
+        const fImage = document.getElementById('c-image');
+        const fImageFile = document.getElementById('c-image-file');
+        const imgUpload = document.getElementById('imgUpload');
+        const imgPreview = document.getElementById('imgPreview');
+        const imgThumb = document.getElementById('imgThumb');
+        const btnClearImg = document.getElementById('btnClearImg');
+        const fVisible = document.getElementById('c-visible');
+        const fSellable = document.getElementById('c-sellable');
+        const btnAdd = document.getElementById('btnAdd');
+        const btnAddAnother = document.getElementById('btnAddAnother');
+        const list = document.getElementById('contentList');
+        const empty = document.getElementById('emptyState');
+
+        function iconFor(type){
+          switch(type){
+            case 'podcast': return '🎧';
+            case 'book': return '📘';
+            case 'course': return '💻';
+            case 'article': return '📰';
+            case 'talk': return '🎤';
+            default: return '➕';
+          }
+        }
+
+        function renderList(items){
+          list.innerHTML = '';
+          if(!items.length){ empty.style.display=''; return; }
+          empty.style.display='none';
+          items.forEach((it, idx)=>{
+            const row = document.createElement('div');
+            row.className = 'item';
+            row.innerHTML = `
+              <div class="ic" aria-hidden="true">${iconFor(it.content_type||'other')}</div>
+              <div>
+                <div style="font-weight:700">${it.title||''}</div>
+                <div class="hint">${(it.description||'').slice(0,200)}</div>
+              </div>
+              <div class="actions">
+                ${it.url ? `<a class="btn" href="${it.url}" target="_blank" rel="noopener">Ansehen</a>` : ''}
+                <button type="button" class="btn" data-act="edit">✏️ Bearbeiten</button>
+                <button type="button" class="btn remove-btn" data-act="del">🗑️ Löschen</button>
+              </div>`;
+            // actions
+            row.querySelector('[data-act="del"]').addEventListener('click', ()=>{
+              const arr = getContents(); arr.splice(idx,1); setContents(arr); renderList(arr); updateAddAnother();
+            });
+            row.querySelector('[data-act="edit"]').addEventListener('click', ()=>{
+              // simple inline re-fill into form for editing
+              const arr = getContents(); const cur = arr[idx]; if(!cur) return;
+              setType(cur.content_type||'other');
+              fTitle.value = cur.title||'';
+              fDesc.value = cur.description||'';
+              fUrl.value = cur.url||'';
+              setImageValue(cur.image||'');
+              fVisible.checked = !!cur.is_visible;
+              fSellable.checked = !!cur.is_sellable;
+              // remove item; saving will re-add
+              arr.splice(idx,1); setContents(arr); renderList(arr); updateAddAnother();
+              editor.style.display=''; window.scrollTo({top:0, behavior:'smooth'});
+            });
+            list.appendChild(row);
+          });
+        }
+
+        function updateAddAnother(){
+          const count = (getContents()||[]).length;
+          if(btnAddAnother){ btnAddAnother.style.display = count > 0 ? '' : 'none'; }
+        }
+
+        // Image upload wiring (match Step 1 behavior visually)
+        function setImageValue(dataUrlOrLink){
+          fImage.value = dataUrlOrLink || '';
+          if(fImage.value){
+            imgThumb.src = fImage.value;
+            imgPreview.style.display = '';
+          } else {
+            imgThumb.removeAttribute('src');
+            imgPreview.style.display = 'none';
+          }
+        }
+        function pickFile(){ if(fImageFile) fImageFile.click(); }
+        function onFiles(files){
+          const file = files && files[0];
+          if(!file) return;
+          if(file.size > 10*1024*1024){ alert('Datei ist größer als 10 MB.'); return; }
+          const reader = new FileReader();
+          reader.onload = () => setImageValue(reader.result);
+          reader.readAsDataURL(file);
+        }
+        if(imgUpload){
+          imgUpload.addEventListener('click', pickFile);
+          imgUpload.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); pickFile(); } });
+          imgUpload.addEventListener('dragover', (e)=>{ e.preventDefault(); });
+          imgUpload.addEventListener('drop', (e)=>{ e.preventDefault(); onFiles(e.dataTransfer.files); });
+        }
+        if(fImageFile){ fImageFile.addEventListener('change', ()=> onFiles(fImageFile.files)); }
+        if(btnClearImg){ btnClearImg.addEventListener('click', ()=> setImageValue('')); }
+
+        if(btnAdd){
+          btnAdd.addEventListener('click', ()=>{
+            const title = fTitle.value.trim();
+            if(!title){
+              // minimal UX: shake or color? Keep simple in test version
+              fTitle.focus(); return;
+            }
+            const item = {
+              content_type: currentType,
+              title,
+              description: fDesc.value.trim(),
+              url: fUrl.value.trim(),
+              image: fImage.value.trim(),
+              is_visible: !!fVisible.checked,
+              is_sellable: !!fSellable.checked,
+            };
+            const arr = getContents();
+            arr.push(item);
+            setContents(arr);
+            // reset fields except type
+            fTitle.value=''; fDesc.value=''; fUrl.value=''; setImageValue(''); fVisible.checked=false; fSellable.checked=false;
+            renderList(arr);
+            updateAddAnother();
+          });
+        }
+
+        if(btnAddAnother){
+          btnAddAnother.addEventListener('click', ()=>{
+            // Clear fields and focus to quickly add another content
+            editor.style.display='';
+            fTitle.value=''; fDesc.value=''; fUrl.value=''; setImageValue(''); fVisible.checked=false; fSellable.checked=false;
+            fTitle.focus();
+          });
+        }
+
+        // Initial rehydrate
+        const initial = getContents();
+        if(initial && initial.length){ editor.style.display=''; }
+        renderList(initial||[]);
+        updateAddAnother();
+      })();
+    </script>
+  </body>
+  </html>

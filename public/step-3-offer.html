@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mentalship – Schritt 3/8 · Coaching‑Angebot</title>
+    <style>
+      :root{
+        --bg:#ffffff;--text:#0f172a;--muted:#6b7280;--border:#e5e7eb;--surface:#ffffff;
+        --brand:#1e40af;--brand-700:#1e3a8a;--brand-50:#eef2ff;--focus:0 0 0 3px rgba(30,64,175,.20);
+        --ok:#0ea5e9;--warn:#f59e0b;--danger:#ef4444;
+      }
+      *,*:before,*:after{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%}
+      body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.5;color:var(--text);background:var(--bg)}
+      a{color:var(--brand);text-decoration:none}
+      a:hover{color:var(--brand-700)}
+      .page{min-height:100vh;display:grid;grid-template-rows:auto 1fr}
+      .container{max-width:1120px;margin:0 auto;padding:0 24px}
+
+      /* Header */
+      .site-header{position:sticky;top:0;background:color-mix(in srgb,#fff 88%,transparent);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--border);z-index:10}
+      .site-header .inner{height:68px;display:flex;align-items:center;justify-content:space-between}
+      .brand{display:flex;align-items:center;gap:10px}
+      .brand-logo{height:22px;width:auto}
+      .header-actions{display:flex;align-items:center;gap:12px;position:relative}
+      .icon-btn{width:36px;height:36px;border-radius:9999px;border:1px solid #e6eaf0;background:#fff;display:grid;place-items:center;cursor:pointer}
+      .icon-btn:focus-visible{outline:none;box-shadow:var(--focus)}
+      .menu{position:absolute;top:calc(100% + 8px);right:0;width:260px;background:#fff;border:1px solid #e6eaf0;border-radius:12px;box-shadow:0 10px 30px rgba(15,23,42,.08);padding:12px;display:none}
+      .menu.open{display:block}
+
+      /* Progress */
+      .progress{padding:16px 0 8px}
+      .progress .count{color:#111827;font-weight:700;margin-bottom:8px}
+      .bar{height:8px;border-radius:9999px;background:#edf0f4;overflow:hidden}
+      .bar .fill{height:100%;width:37.5%;background:var(--brand);border-radius:inherit}
+
+      h1{font-size:32px;margin:18px 0 6px;letter-spacing:-.01em}
+      .lead{color:var(--muted);margin:0 0 20px}
+
+      /* Section cards wrapper */
+      .sections{max-width:920px;display:grid;gap:16px;margin-bottom:80px}
+      .card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 16px}
+      .card h2{margin:0 0 8px;font-size:18px}
+      .sub{color:var(--muted);font-size:14px;margin:0 0 10px}
+
+      /* Single-select cards (Category) */
+      .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+      .opt{position:relative;background:#fff;border:2px solid #d1d5db;border-radius:14px;padding:16px;min-height:120px;display:flex;flex-direction:column;gap:8px;cursor:pointer}
+      .opt:hover{border-color:#9fb5d7}
+      .opt .radio{position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:9999px;border:2px solid #9fb5d7;background:#fff}
+      .opt.is-selected{border-color:var(--brand)}
+      .opt.is-selected .radio{border-color:var(--brand);background:radial-gradient(circle at 50% 50%, var(--brand) 55%, transparent 56%)}
+      .opt h3{margin:6px 0 0;font-size:18px}
+      .badge{position:absolute;left:12px;bottom:12px;font-size:12px;color:#4b5563;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:9999px;padding:2px 8px}
+      .opt.is-disabled{opacity:.6;cursor:not-allowed}
+      .opt.is-disabled:hover{border-color:#d1d5db}
+
+      /* Chips & inputs */
+      .input{height:44px;width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:10px;background:#fff;font:inherit;color:inherit}
+      .input:focus{outline:none;border-color:#9fb5d7;box-shadow:0 0 0 3px rgba(30,64,175,.12)}
+      .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+      .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #d1d5db;border-radius:9999px;background:#fff;cursor:pointer}
+      .chip.is-selected{border-color:var(--brand);background:var(--brand-50)}
+      .chip .remove{margin-left:2px}
+      .chip input[type="checkbox"]{accent-color: var(--brand)}
+      .hint{font-size:12px;color:var(--muted);margin-top:6px}
+      .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+      .full{grid-column:1/-1}
+
+      /* Topics tag list */
+      .taglist{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+      .tag{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:9999px;border:1px solid #d1d5db;background:#fff;cursor:pointer}
+      .tag.is-selected{border-color:var(--brand);background:var(--brand-50)}
+
+      /* Radio cards (delivery) */
+      .radio-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+      .r-card{border:2px solid #d1d5db;border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer}
+      .r-card:hover{border-color:#9fb5d7}
+      .r-card.is-selected{border-color:var(--brand);background:#fff}
+      .r-dot{width:18px;height:18px;border-radius:9999px;border:2px solid #9fb5d7}
+      .r-card.is-selected .r-dot{border-color:var(--brand);background:radial-gradient(circle at 50% 50%, var(--brand) 55%, transparent 56%)}
+
+      /* Repeatable cards */
+      .rep-list{display:grid;gap:10px;margin-top:10px}
+      .rep{border:1px solid #dbe4f1;background:#f8fafc;border-radius:12px;padding:12px}
+      .rep .grid{display:grid;grid-template-columns:1fr 220px;gap:8px}
+      .rep .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+      .small{height:36px;padding:6px 10px;border-radius:8px}
+      .textarea{min-height:72px;resize:vertical}
+      .switch{display:inline-flex;align-items:center;gap:8px}
+      .switch input{width:36px;height:20px;appearance:none;-webkit-appearance:none;outline:none;background:#e5e7eb;border-radius:9999px;position:relative;cursor:pointer}
+      .switch input:checked{background:var(--brand)}
+      .switch input:before{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s}
+      .switch input:checked:before{transform:translateX(16px)}
+      .select{height:36px;padding:6px 10px;border:1px solid #d1d5db;border-radius:8px;background:#fff;font:inherit;color:inherit;appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:36px;
+        background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2355637a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
+        background-repeat:no-repeat;background-position:right 10px center;background-size:12px 12px;
+      }
+      .mini-actions{display:flex;align-items:center;gap:8px;margin-top:8px}
+      .btn-tonal{height:32px;padding:0 12px;border-radius:9999px;border:1px solid var(--brand);background:#fff;color:var(--brand);font-weight:700;cursor:pointer}
+      .btn-tonal:hover{background:var(--brand-50)}
+      .remove-btn{height:32px;padding:0 10px;border-radius:9999px;border:1px solid #d1d5db;background:#fff;color:#6b7280;cursor:pointer}
+
+      /* Footer actions (static, like other steps) */
+      .form-foot{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+      .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9999px;border:1px solid var(--border);background:#fff;color:#111827;font-weight:700;cursor:pointer}
+      .btn-primary{background:var(--brand);border-color:var(--brand);color:#fff}
+      .btn-primary:hover{background:var(--brand-700)}
+      .btn-ghost{background:transparent;border-color:transparent;color:#374151}
+      .toast{position:fixed;right:16px;bottom:16px;background:#111827;color:#fff;padding:10px 12px;border-radius:8px;opacity:0;transform:translateY(6px);transition:.2s}
+      .toast.show{opacity:1;transform:none}
+
+      /* Accessibility helpers */
+      .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    </style>
+  </head>
+  <body class="page">
+    <header class="site-header">
+      <div class="container inner">
+        <a class="brand" href="#" aria-label="Mentalship Startseite">
+          <img class="brand-logo" src="../Logos/LogoV1.png" alt="Mentalship Logo" />
+        </a>
+        <div class="header-actions">
+          <button class="icon-btn" id="profileBtn" aria-label="Profilmenü öffnen" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/>
+            </svg>
+          </button>
+          <div class="menu" id="profileMenu" role="menu" aria-hidden="true">
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 6px 10px;border-bottom:1px solid var(--border)">
+              <div style="width:40px;height:40px;border-radius:9999px;border:1px solid #e5e7eb;display:grid;place-items:center;color:#64748b">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:800">Laurenzus Benzus</div>
+                <div style="color:var(--muted);font-size:12px">Mentaltrainer</div>
+              </div>
+            </div>
+            <ul style="list-style:none;margin:8px 0 0;padding:0">
+              <li style="padding:10px 8px;border-radius:10px;cursor:pointer">Konto schließen</li>
+              <li style="padding:10px 8px;border-radius:10px;cursor:pointer">Abmelden</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" role="main">
+      <div class="progress" aria-label="Fortschritt">
+        <div class="count">Schritt 3 von 8</div>
+        <div class="bar"><div class="fill" style="width:37.5%"></div></div>
+      </div>
+
+      <h1>Coaching‑Angebot</h1>
+      <p class="lead">Wähle deinen Bereich und konkretisiere dein Angebot. Du kannst später alles anpassen.</p>
+
+      <form id="offerForm" action="#" method="get" aria-label="Schritt 3/8 – Coaching‑Angebot (statisch)">
+        <div class="sections">
+          <!-- Abschnitt A: Hauptkategorie -->
+          <section class="card" aria-labelledby="secA">
+            <h2 id="secA">Hauptkategorie</h2>
+            <p class="sub">Wähle den Bereich, in dem du hauptsächlich tätig bist. Aktuell ist Sport verfügbar.</p>
+            <div id="catGrid" class="grid-3" role="group" aria-label="Bereich wählen">
+              <div class="opt is-selected" data-value="sport" tabindex="0" role="button" aria-pressed="true">
+                <div class="radio" aria-hidden="true"></div>
+                <h3>Sport</h3>
+              </div>
+              <div class="opt is-disabled" data-value="business" aria-disabled="true" tabindex="-1">
+                <div class="radio" aria-hidden="true"></div>
+                <h3>Business</h3>
+                <span class="badge">Noch nicht verfügbar</span>
+              </div>
+              <div class="opt is-disabled" data-value="life" aria-disabled="true" tabindex="-1">
+                <div class="radio" aria-hidden="true"></div>
+                <h3>Life</h3>
+                <span class="badge">Noch nicht verfügbar</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Abschnitt B: Sportartspezialisierung -->
+          <section class="card" aria-labelledby="secB">
+            <h2 id="secB">Sportartspezialisierung</h2>
+            <div class="row full">
+              <div class="full">
+                <input id="sportSearch" class="input" type="text" placeholder="Sportart suchen …" aria-label="Sportart suchen" />
+              </div>
+              <div class="full chips" id="sportChips" aria-live="polite">
+                <button type="button" class="chip" data-val="all" id="chipAllSports">Alle Sportarten</button>
+                <button type="button" class="chip" id="chipAddSport">Weitere Sportart hinzufügen…</button>
+              </div>
+              <div id="addSportWrap" class="full" style="display:none">
+                <label class="sr-only" for="addSportInput">Eigene Sportart</label>
+                <input id="addSportInput" class="input" type="text" placeholder="Sportart eingeben und Enter drücken" />
+              </div>
+              <div class="full">
+                <div id="sportList" class="chips" role="group" aria-label="Gängige Sportarten">
+                  <!-- Chips via JS -->
+                </div>
+                <div class="hint">Wähle deine Spezialisierungen – oder „Alle Sportarten“, wenn du sportartübergreifend arbeitest.</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Abschnitt C: Zielgruppen & Leistungsniveau -->
+          <section class="card" aria-labelledby="secC">
+            <h2 id="secC">Zielgruppen & Leistungsniveau</h2>
+            <div class="row">
+              <div>
+                <div class="sub" style="margin-bottom:6px">Zielgruppen</div>
+                <div class="chips" id="audienceChips" role="group" aria-label="Zielgruppen">
+                  <label class="chip"><input type="checkbox" value="individuals" /> Einzelsportler</label>
+                  <label class="chip"><input type="checkbox" value="teams" /> Teams</label>
+                  <label class="chip"><input type="checkbox" value="both" /> Beide</label>
+                </div>
+              </div>
+              <div>
+                <div class="sub" style="margin-bottom:6px">Leistungsniveau</div>
+                <div class="chips" id="levelChips" role="group" aria-label="Leistungsniveau">
+                  <label class="chip"><input type="checkbox" value="freizeit" /> Freizeit</label>
+                  <label class="chip"><input type="checkbox" value="amateur" /> Amateur</label>
+                  <label class="chip"><input type="checkbox" value="leistungssport" /> Leistungssport</label>
+                  <label class="chip"><input type="checkbox" value="profi" /> Profi</label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Abschnitt D: Themen & Schwerpunkte -->
+          <section class="card" aria-labelledby="secD">
+            <h2 id="secD">Themen & Schwerpunkte</h2>
+            <input id="topicSearch" class="input" type="text" placeholder="Themen suchen …" aria-label="Thema suchen" />
+            <div class="chips" style="margin-top:8px">
+              <button type="button" class="chip" id="chipAllTopics">Alle Themen</button>
+              <button type="button" class="chip" id="chipAddTopic">Eigenes Thema hinzufügen…</button>
+            </div>
+            <div id="addTopicWrap" style="display:none;margin-top:8px">
+              <label class="sr-only" for="addTopicInput">Eigenes Thema</label>
+              <input id="addTopicInput" class="input" type="text" placeholder="Thema eingeben und Enter drücken" />
+            </div>
+            <div id="topicList" class="taglist" role="group" aria-label="Themenliste"></div>
+          </section>
+
+          <!-- Abschnitt E: Durchführungsform -->
+          <section class="card" aria-labelledby="secE">
+            <h2 id="secE">Durchführungsform</h2>
+            <div id="deliveryCards" class="radio-cards" role="radiogroup" aria-label="Durchführungsform">
+              <div class="r-card is-selected" data-val="online" tabindex="0" role="radio" aria-checked="true">
+                <div class="r-dot" aria-hidden="true"></div>
+                <div>Online</div>
+              </div>
+              <div class="r-card" data-val="praesenz" tabindex="0" role="radio" aria-checked="false">
+                <div class="r-dot" aria-hidden="true"></div>
+                <div>Präsenz</div>
+              </div>
+              <div class="r-card" data-val="beides" tabindex="0" role="radio" aria-checked="false">
+                <div class="r-dot" aria-hidden="true"></div>
+                <div>Beides</div>
+              </div>
+            </div>
+            <div id="radiusWrap" style="margin-top:10px;display:none">
+              <label for="radius" class="sub" style="display:block;margin:0 0 6px">Umkreis (km)</label>
+              <input id="radius" class="input" type="number" inputmode="numeric" placeholder="z. B. 50" />
+            </div>
+          </section>
+
+          <!-- Abschnitt F: Vorträge & Seminare (optional) -->
+          <section class="card" aria-labelledby="secF">
+            <h2 id="secF">Vorträge & Seminare (optional)</h2>
+            <label class="switch"><input id="talksToggle" type="checkbox" /> <span>Ich biete Vorträge oder Seminare an</span></label>
+            <div id="talksWrap" class="rep-list" style="display:none">
+              <!-- repeatable cards -->
+            </div>
+            <div class="mini-actions" id="talksActions" style="display:none">
+              <button type="button" class="btn-tonal" id="addTalk">Spezielles Thema angeben</button>
+            </div>
+          </section>
+
+          <!-- Abschnitt G: Altersgruppen -->
+          <section class="card" aria-labelledby="secG">
+            <h2 id="secG">Altersgruppen</h2>
+            <div id="ageChips" class="chips" role="group" aria-label="Altersgruppen">
+              <label class="chip"><input type="checkbox" value="kinder" /> Kinder</label>
+              <label class="chip"><input type="checkbox" value="jugendliche" /> Jugendliche</label>
+              <label class="chip"><input type="checkbox" value="junge_erwachsene" /> Junge Erwachsene</label>
+              <label class="chip"><input type="checkbox" value="erwachsene" /> Erwachsene</label>
+              <label class="chip"><input type="checkbox" value="senioren" /> Senioren</label>
+              <label class="chip"><input type="checkbox" value="alle" /> Alle Altersgruppen</label>
+            </div>
+          </section>
+
+          <!-- Hinweis: Eigene Inhalte sind nun eine eigene Seite (Step 4) -->
+        </div>
+
+        <div class="form-foot">
+          <a class="btn" href="step-2-online.html">Zurück</a>
+          <a class="btn btn-primary" href="step-4-contents.html">Weiter</a>
+        </div>
+      </form>
+    </main>
+
+    
+
+    <script>
+      (function(){
+        // Header menu
+        const btn = document.getElementById('profileBtn');
+        const menu = document.getElementById('profileMenu');
+        if(btn && menu){
+          btn.addEventListener('click', ()=>{
+            const open = menu.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+            menu.setAttribute('aria-hidden', String(!open));
+          });
+          document.addEventListener('click',(e)=>{
+            if(!menu.classList.contains('open')) return;
+            if(!menu.contains(e.target) && !btn.contains(e.target)){
+              menu.classList.remove('open');
+              btn.setAttribute('aria-expanded','false');
+              menu.setAttribute('aria-hidden','true');
+            }
+          });
+        }
+
+        // Draft persistence
+        const STORE_KEY = 'msDraft';
+        function loadDraft(){
+          try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}') || {}; }catch(e){ return {}; }
+        }
+        function saveDraft(patch){
+          const cur = loadDraft();
+          const next = Object.assign({}, cur, patch);
+          localStorage.setItem(STORE_KEY, JSON.stringify(next));
+        }
+        
+
+        // Category single-select (A)
+        const catGrid = document.getElementById('catGrid');
+        if(catGrid){
+          catGrid.addEventListener('click', function(e){
+            const card = e.target.closest('.opt');
+            if(!card || card.classList.contains('is-disabled')) return;
+            Array.from(catGrid.querySelectorAll('.opt')).forEach(c=>{
+              c.classList.remove('is-selected');
+              c.setAttribute('aria-pressed','false');
+            });
+            card.classList.add('is-selected');
+            card.setAttribute('aria-pressed','true');
+            saveDraft({category: card.getAttribute('data-value')});
+          });
+          catGrid.addEventListener('keydown', function(e){
+            if(e.key !== 'Enter' && e.key !== ' ') return;
+            const card = e.target.closest('.opt');
+            if(!card || card.classList.contains('is-disabled')) return; e.preventDefault(); card.click();
+          });
+        }
+
+        // Sports (B)
+        const COMMON_SPORTS = ['Fußball','Tennis','Leichtathletik','Schwimmen','Handball','Basketball','Radsport','Wintersport','Kampfsport','Volleyball','Turnen','Golf','Reitsport'];
+        const sportList = document.getElementById('sportList');
+        const sportSearch = document.getElementById('sportSearch');
+        const chipAllSports = document.getElementById('chipAllSports');
+        const addSportBtn = document.getElementById('chipAddSport');
+        const addSportWrap = document.getElementById('addSportWrap');
+        const addSportInput = document.getElementById('addSportInput');
+        let selectedSports = new Set();
+        let sportsAll = false;
+        function renderSports(filter){
+          if(!sportList) return;
+          sportList.innerHTML = '';
+          COMMON_SPORTS.filter(s=>!filter || s.toLowerCase().includes(filter.toLowerCase())).forEach(s=>{
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'chip' + (selectedSports.has(s) ? ' is-selected' : '');
+            btn.textContent = s;
+            btn.setAttribute('data-val', s);
+            btn.addEventListener('click', ()=>{
+              if(sportsAll){ sportsAll = false; chipAllSports.classList.remove('is-selected'); }
+              if(selectedSports.has(s)) selectedSports.delete(s); else selectedSports.add(s);
+              saveDraft({sports: Array.from(selectedSports), sports_all: sportsAll});
+              renderSports(sportSearch.value.trim());
+            });
+            sportList.appendChild(btn);
+          });
+        }
+        if(sportSearch){ sportSearch.addEventListener('input', ()=>renderSports(sportSearch.value.trim())); }
+        if(addSportBtn && addSportWrap && addSportInput){
+          addSportBtn.addEventListener('click', ()=>{ addSportWrap.style.display = addSportWrap.style.display ? '' : 'block'; addSportInput.focus(); });
+          addSportInput.addEventListener('keydown', (e)=>{
+            if(e.key === 'Enter'){
+              e.preventDefault();
+              const val = addSportInput.value.trim(); if(!val) return;
+              COMMON_SPORTS.includes(val) || COMMON_SPORTS.push(val);
+              selectedSports.add(val);
+              addSportInput.value='';
+              saveDraft({sports: Array.from(selectedSports), sports_all: sportsAll});
+              renderSports(sportSearch.value.trim());
+            }
+          });
+        }
+        if(chipAllSports){
+          chipAllSports.addEventListener('click', ()=>{
+            sportsAll = !sportsAll;
+            chipAllSports.classList.toggle('is-selected', sportsAll);
+            if(sportsAll){ selectedSports.clear(); }
+            saveDraft({sports: Array.from(selectedSports), sports_all: sportsAll});
+            renderSports(sportSearch.value?.trim());
+          });
+        }
+
+        // Audience & Levels (C)
+        function wireCheckChips(containerId, key){
+          const wrap = document.getElementById(containerId);
+          if(!wrap) return;
+          wrap.addEventListener('change', function(){
+            const vals = Array.from(wrap.querySelectorAll('input:checked')).map(i=>i.value);
+            // Special handling: audience both toggles individuals+teams visually
+            if(containerId === 'audienceChips'){
+              const both = wrap.querySelector('input[value="both"]');
+              if(both && both.checked){
+                // ensure others look selected too
+                wrap.querySelectorAll('input[value="individuals"],input[value="teams"]').forEach(i=>{ i.checked = true; });
+              }
+            }
+            // style selected chips
+            wrap.querySelectorAll('label.chip').forEach(l=>{
+              const inp = l.querySelector('input');
+              l.classList.toggle('is-selected', !!(inp && inp.checked));
+            });
+            saveDraft({ [key]: vals });
+          });
+        }
+        wireCheckChips('audienceChips','audience_types');
+        wireCheckChips('levelChips','levels');
+
+        // Topics (D)
+        const TOPICS = [
+          'Aufmerksamkeit/Konzentration','Vorstellungstraining','Selbstgespräche','Angst vor Versagen','Ärger-/Aggressionskontrolle','Stressbewältigung','Versagen unter Druck','Teamentwicklung/Team-Building','Zielsetzung','Leistungsmotivation','Willenstraining','Entspannung','Aktivierung','Hypnose','Wettkampfvorbereitung','Debriefing','Kommunikation','Körpersprache','Karriereende/Duale Karriere','Selbstmanagement','Persönlichkeitsentwicklung','Seelische Gesundheit','Flow','Prävention sexualisierter Gewalt','Sportverletzungen','Dopingprävention','Gesundheitssport','Trauerarbeit','Sportsucht','Eltern','Talentförderung','Schulsport','Selbstvertrauen','Diskriminierung','Perfektionismus/Narzissmus','sportliche Krisen','Sensation Seeking','Fans','Neuroathletik','NLZ','Coach-the-Coach','Life Kinetik','Achtsamkeit','Essstörungen','Organisationsentwicklung','Konfliktmanagement','Führungskräftecoaching','Schlafverhalten','Umgang mit Schmerzen','Biofeedback'
+        ];
+        const topicList = document.getElementById('topicList');
+        const topicSearch = document.getElementById('topicSearch');
+        const addTopicBtn = document.getElementById('chipAddTopic');
+        const addTopicWrap = document.getElementById('addTopicWrap');
+        const addTopicInput = document.getElementById('addTopicInput');
+        const chipAllTopics = document.getElementById('chipAllTopics');
+        let selectedTopics = new Set();
+        let allTopics = false;
+        function renderTopics(filter){
+          if(!topicList) return;
+          topicList.innerHTML = '';
+          TOPICS.filter(t=>!filter || t.toLowerCase().includes(filter.toLowerCase())).forEach(t=>{
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'tag' + (selectedTopics.has(t) ? ' is-selected' : '');
+            b.textContent = t;
+            b.addEventListener('click', ()=>{
+              if(allTopics){ allTopics = false; chipAllTopics.classList.remove('is-selected'); }
+              if(selectedTopics.has(t)) selectedTopics.delete(t); else selectedTopics.add(t);
+              saveDraft({topics: Array.from(selectedTopics), topics_all: allTopics});
+              renderTopics(topicSearch.value.trim());
+            });
+            topicList.appendChild(b);
+          });
+        }
+        if(topicSearch){ topicSearch.addEventListener('input', ()=>renderTopics(topicSearch.value.trim())); }
+        if(addTopicBtn && addTopicWrap && addTopicInput){
+          addTopicBtn.addEventListener('click', ()=>{ addTopicWrap.style.display = addTopicWrap.style.display ? '' : 'block'; addTopicInput.focus(); });
+          addTopicInput.addEventListener('keydown', (e)=>{
+            if(e.key === 'Enter'){
+              e.preventDefault();
+              const val = addTopicInput.value.trim(); if(!val) return;
+              TOPICS.includes(val) || TOPICS.push(val);
+              selectedTopics.add(val);
+              addTopicInput.value='';
+              saveDraft({topics: Array.from(selectedTopics), topics_all: allTopics});
+              renderTopics(topicSearch.value.trim());
+            }
+          });
+        }
+        if(chipAllTopics){
+          chipAllTopics.addEventListener('click', ()=>{
+            allTopics = !allTopics;
+            chipAllTopics.classList.toggle('is-selected', allTopics);
+            if(allTopics){ selectedTopics.clear(); }
+            saveDraft({topics: Array.from(selectedTopics), topics_all: allTopics});
+            renderTopics(topicSearch.value?.trim());
+          });
+        }
+
+        // Delivery (E)
+        const deliveryCards = document.getElementById('deliveryCards');
+        const radiusWrap = document.getElementById('radiusWrap');
+        const radius = document.getElementById('radius');
+        function setDelivery(val){
+          Array.from(deliveryCards.querySelectorAll('.r-card')).forEach(c=>{
+            const sel = c.getAttribute('data-val') === val;
+            c.classList.toggle('is-selected', sel);
+            c.setAttribute('aria-checked', String(sel));
+          });
+          const needsRadius = val === 'praesenz' || val === 'beides';
+          radiusWrap.style.display = needsRadius ? '' : 'none';
+          saveDraft({delivery_mode: val});
+        }
+        if(deliveryCards){
+          deliveryCards.addEventListener('click', function(e){
+            const card = e.target.closest('.r-card');
+            if(!card) return; setDelivery(card.getAttribute('data-val'));
+          });
+          deliveryCards.addEventListener('keydown', function(e){
+            if(e.key !== 'Enter' && e.key !== ' ') return;
+            const card = e.target.closest('.r-card'); if(!card) return; e.preventDefault(); setDelivery(card.getAttribute('data-val'));
+          });
+        }
+        if(radius){ radius.addEventListener('input', ()=>saveDraft({radius_km: radius.value})); }
+
+        // Talks (F)
+        const talksToggle = document.getElementById('talksToggle');
+        const talksWrap = document.getElementById('talksWrap');
+        const talksActions = document.getElementById('talksActions');
+        const addTalk = document.getElementById('addTalk');
+        function updateTalkAddLabel(){
+          if(!addTalk) return;
+          const count = talksWrap ? talksWrap.children.length : 0;
+          addTalk.textContent = count > 0 ? '+' : 'Spezielles Thema angeben';
+          addTalk.setAttribute('aria-label', count > 0 ? 'Weiteren Vortrag hinzufügen' : 'Spezielles Vortragsthema angeben');
+          addTalk.setAttribute('title', addTalk.getAttribute('aria-label'));
+        }
+        function talkCard(data, index){
+          const wrap = document.createElement('div');
+          wrap.className = 'rep';
+          wrap.innerHTML = `
+            <div class=\"grid\">\n              <div>\n                <label class=\"sub\" for=\"talk-title-${index}\">Thema/Titel</label>\n                <input id=\"talk-title-${index}\" class=\"input small\" type=\"text\" value=\"${data?.title||''}\" placeholder=\"z. B. Mentale Stärke im Wettkampf\" />\n              </div>\n              <div>\n                <label class=\"sub\" for=\"talk-format-${index}\">Format</label>\n                <select id=\"talk-format-${index}\" class=\"select\">\n                  <option value=\"online\" ${data?.format==='online'?'selected':''}>Online</option>\n                  <option value=\"praesenz\" ${data?.format==='praesenz'?'selected':''}>Präsenz</option>\n                  <option value=\"hybrid\" ${data?.format==='hybrid'?'selected':''}>Hybrid</option>\n                </select>\n              </div>\n            </div>\n            <label class=\"sub\" for=\"talk-desc-${index}\" style=\"display:block;margin-top:8px\">Kurzbeschreibung (max. 200 Zeichen)</label>\n            <textarea id=\"talk-desc-${index}\" class=\"input textarea\" maxlength=\"200\" placeholder=\"Kurz beschreiben …\">${data?.desc||''}</textarea>\n            <div class=\"mini-actions\">\n              <button type=\"button\" class=\"remove-btn\">Entfernen</button>\n            </div>`;
+          return wrap;
+        }
+        function readTalks(){
+          const items = [];
+          Array.from(talksWrap.children).forEach((node, idx)=>{
+            const title = node.querySelector(`#talk-title-${idx}`)?.value?.trim()||'';
+            const format = node.querySelector(`#talk-format-${idx}`)?.value||'online';
+            const desc = node.querySelector(`#talk-desc-${idx}`)?.value?.trim()||'';
+            items.push({title, format, desc});
+          });
+          return items;
+        }
+        function writeTalks(items){
+          talksWrap.innerHTML = '';
+          items.forEach((it, i)=>{ talksWrap.appendChild(talkCard(it, i)); });
+        }
+        function syncTalks(){ saveDraft({ talks: readTalks() }); }
+        if(talksToggle){
+          talksToggle.addEventListener('change', ()=>{
+            const on = talksToggle.checked;
+            talksWrap.style.display = on ? '' : 'none';
+            talksActions.style.display = on ? '' : 'none';
+            if(on){ updateTalkAddLabel(); }
+            saveDraft({ talks_enabled: on, talks: on ? readTalks() : [] });
+          });
+        }
+        if(addTalk){ addTalk.addEventListener('click', ()=>{ talksWrap.appendChild(talkCard({}, talksWrap.children.length)); syncTalks(); updateTalkAddLabel(); }); }
+        talksWrap.addEventListener('input', syncTalks);
+        talksWrap.addEventListener('click', function(e){
+          const btn = e.target.closest('.remove-btn'); if(!btn) return;
+          const node = btn.closest('.rep'); if(!node) return;
+          node.remove(); syncTalks(); updateTalkAddLabel();
+        });
+
+        // Age groups (G)
+        const ageChips = document.getElementById('ageChips');
+        if(ageChips){
+          ageChips.addEventListener('change', function(){
+            const all = ageChips.querySelector('input[value="alle"]');
+            if(all && all.checked){
+              ageChips.querySelectorAll('input:not([value="alle"])').forEach(i=>{ i.checked = false; });
+            }
+            const vals = Array.from(ageChips.querySelectorAll('input:checked')).map(i=>i.value);
+            ageChips.querySelectorAll('label.chip').forEach(l=>{
+              const inp = l.querySelector('input');
+              l.classList.toggle('is-selected', !!(inp && inp.checked));
+            });
+            saveDraft({ age_groups: vals });
+          });
+        }
+
+        // (Eigene Inhalte wurden auf eine eigene Seite ausgelagert)
+
+        // Rehydrate from draft
+        (function hydrate(){
+          const d = loadDraft();
+          // A
+          const cat = d.category || 'sport';
+          Array.from(catGrid?.querySelectorAll('.opt')||[]).forEach(c=>{
+            const sel = c.getAttribute('data-value') === cat; c.classList.toggle('is-selected', sel); c.setAttribute('aria-pressed', String(sel));
+          });
+          // B
+          if(Array.isArray(d.sports)){ selectedSports = new Set(d.sports); }
+          sportsAll = !!d.sports_all; if(sportsAll) chipAllSports?.classList.add('is-selected');
+          renderSports('');
+          // C
+          (d.audience_types||[]).forEach(v=>{ const i = document.querySelector(`#audienceChips input[value=\"${v}\"]`); if(i){ i.checked = true; }});
+          (d.levels||[]).forEach(v=>{ const i = document.querySelector(`#levelChips input[value=\"${v}\"]`); if(i){ i.checked = true; }});
+          // update chip visuals for C
+          document.querySelectorAll('#audienceChips label.chip, #levelChips label.chip').forEach(l=>{
+            const inp = l.querySelector('input'); l.classList.toggle('is-selected', !!(inp && inp.checked));
+          });
+          // D
+          if(Array.isArray(d.topics)){ selectedTopics = new Set(d.topics); }
+          allTopics = !!d.topics_all; if(allTopics) chipAllTopics?.classList.add('is-selected');
+          renderTopics('');
+          // E
+          setDelivery(d.delivery_mode || 'online');
+          if(d.radius_km && radius){ radius.value = d.radius_km; }
+          // F
+          if(d.talks_enabled){ talksToggle.checked = true; talksWrap.style.display=''; talksActions.style.display=''; }
+          if(Array.isArray(d.talks)){ writeTalks(d.talks); }
+          updateTalkAddLabel();
+          // G
+          (d.age_groups||[]).forEach(v=>{ const i = document.querySelector(`#ageChips input[value=\"${v}\"]`); if(i){ i.checked = true; }});
+          document.querySelectorAll('#ageChips label.chip').forEach(l=>{ const inp=l.querySelector('input'); l.classList.toggle('is-selected', !!(inp && inp.checked)); });
+          // H (entfällt hier)
+        })();
+
+        // No separate Zwischenspeichern button on this step anymore
+      })();
+    </script>
+  </body>
+  </html>
